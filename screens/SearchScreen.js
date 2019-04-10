@@ -5,11 +5,14 @@ import AppHeader from '../components/AppHeader';
 import SearchBar from '../components/SearchBar';
 import VideoList from '../components/VideoList';
 
-export default class LinksScreen extends React.Component {
+export default class SearchScreen extends React.Component {
   state = {
     loading: false,
     videos: []
   }
+  static navigationOptions = {
+    header: null,
+  };
 
   onPressSearch = (term) => {
     this.searchYT(term);
@@ -24,7 +27,7 @@ export default class LinksScreen extends React.Component {
   }
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#ddd'}}>
+      <View style={{flex: 1 }}>
         <AppHeader headerText={"Search Youtube"} />
         <SearchBar onPressSearch={this.onPressSearch}
                     loading = {this.state.loading}

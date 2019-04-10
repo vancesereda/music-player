@@ -18,25 +18,31 @@ import TrackList from '../components/TrackList'
 
 const artists = ["Machine Girl"]
 const tracks = ["MG1",
- "Ionic Funk (20XXX Battle Music",
+ "Ionic Funk (20XXX Battle Music)",
  "Krystle (URL Cyber Palace Mix)",
  "Ginger Claps",
  "Ghost",
  "覆面調査員 (GabberTrap Mix)",
- "Out By 16, Dead on the Scene ",
+ "Out By 16, Dead on the Scene",
  "Post Rave Maximalist",
  "Phase α",
  "Free Will"
 ]
 
+const albums= ["WLFGRL"]
 
 
-
-const trackItems = tracks.map((track) => {
- return { "track": track , artist: "Machine Girl", runTime:"2:30" }
+const trackItemsMachineGirl = tracks.map((track) => {
+ return { "track": track , artist: "Machine Girl", runTime:"2:30", album: "WLFGRL" }
 })
 
+
+const music = {
+  trackItemsMachineGirl,
+}
+
 const API_KEY = 'AIzaSyCx2WmYgEsrUwU-uGhT_Z3WS7x-qP2m0mw'
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -47,7 +53,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1 , backgroundColor: 'black'}}>
         <AppHeader headerText="Your Library"/>
-        <TrackList music={trackItems} />
+        <TrackList music={music} />
 
 
         

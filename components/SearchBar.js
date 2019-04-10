@@ -34,7 +34,6 @@ class SearchBar extends Component {
 const styles = {
     containerStyle: {
         flexDirection: 'row',
-        marginTop: 75,
         marginLeft: 10,
         marginRight: 10
     },

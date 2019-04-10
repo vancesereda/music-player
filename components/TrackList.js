@@ -9,7 +9,7 @@ import Colors from '../constants/Colors';
 
 const TrackList = ({music}) => (
     <ScrollView>
-        {music.map((music, key) => (
+        {music[0].map((music, key) => (
             <View key={key}>
                 <ListItem 
                     Component={TouchableScale}
