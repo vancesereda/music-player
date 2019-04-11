@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import SearchBar from '../components/SearchBar'
@@ -38,7 +39,7 @@ const trackItemsMachineGirl = tracks.map((track) => {
 
 
 const music = {
-  trackItemsMachineGirl,
+  trackItemsMachineGirl
 }
 
 const API_KEY = 'AIzaSyCx2WmYgEsrUwU-uGhT_Z3WS7x-qP2m0mw'
@@ -51,9 +52,10 @@ export default class HomeScreen extends React.Component {
   
   render() {
     return (
-      <View style={{flex: 1 , backgroundColor: 'black'}}>
+      <View style={{flex: 1}}>
         <AppHeader headerText="Your Library"/>
-        <TrackList music={music} />
+        <TrackList music={music.trackItemsMachineGirl} />
+        {/* <Button onPress={()=>console.log(music)} title="Test" /> */}
 
 
         

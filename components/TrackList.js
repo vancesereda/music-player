@@ -9,7 +9,7 @@ import Colors from '../constants/Colors';
 
 const TrackList = ({music}) => (
     <ScrollView>
-        {music[0].map((music, key) => (
+        {music.map((music, key) => (
             <View key={key}>
                 <ListItem 
                     Component={TouchableScale}
@@ -20,10 +20,9 @@ const TrackList = ({music}) => (
                     subtitle={music.artist}
                     titleStyle={{color: Colors.darkTheme.textColor, fontWeight: 'bold'}}
                     rightSubtitle={music.runTime}
-                    containerStyle={{backgroundColor: Colors.darkTheme.listColor}}
+                    containerStyle={{ backgroundColor: `${key%2 ? `rgba(12,12,12,1)` : `rgba(10,10,10,1)`}`}}
                     subtitleStyle={{color: 'white'}}
                     rightSubtitleStyle={{color: 'white', paddingTop: 10}}
-
                 />
             </View>
         ))}

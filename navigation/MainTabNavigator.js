@@ -20,7 +20,7 @@ HomeStack.navigationOptions = {
       name={
         Platform.OS === 'ios'
           ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          : 'library-music'
       }
     />
   ),
@@ -35,34 +35,23 @@ SearchStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-search'}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'search'}
     />
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
+
 
 export default createBottomTabNavigator({
   HomeStack,
   SearchStack,
-  SettingsStack,
 },
 {
   tabBarOptions: {
     style: {
-      backgroundColor: Colors.darkTheme.tabColor
+      backgroundColor: Colors.darkTheme.tabColor,
+      justifyContent: 'center',
     }
   }
 }
