@@ -28,7 +28,7 @@ export default class SearchScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1 }}>
-        <AppHeader headerText={"Search Youtube"} />
+        <AppHeader headerText={"Search Youtube"} modal={true}/>
         <SearchBar onPressSearch={this.onPressSearch}
                     loading = {this.state.loading}
         />

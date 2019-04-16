@@ -9,6 +9,7 @@ import {
   View,
   Button
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'
 import { WebBrowser } from 'expo';
 import SearchBar from '../components/SearchBar'
 import AppHeader from '../components/AppHeader'
@@ -45,17 +46,45 @@ const music = {
 const API_KEY = 'AIzaSyCx2WmYgEsrUwU-uGhT_Z3WS7x-qP2m0mw'
 
 export default class HomeScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tracks: true, 
+      albums: false, 
+      artists: false, 
+      playlists: false
+    }
+  }
+
   static navigationOptions = {
     header: null,
   };
-
+ 
   
   render() {
+    const { tracks, albums, artists, playlists } = this.state;
     return (
-      <View style={{flex: 1}}>
-        <AppHeader headerText="Your Library"/>
-        <TrackList music={music.trackItemsMachineGirl} />
-        {/* <Button onPress={()=>console.log(music)} title="Test" /> */}
+      <View style={{flex: 1, backgroundColor: "black"}}>
+        {/* <AppHeader headerText="Your Library" modal={true} /> */}
+        <AppHeader leftComponent={
+          <View style={{flex: 1, flexDirection: 'row', paddingTop: 20, paddingLeft: 5}}>
+              <Text style={{color:"white", fontSize: 16, fontWeight: 'bold'}}>Tracks</Text> 
+              <Ionicons name={'md-arrow-dropdown'} size={20} style={{color: 'white', paddingLeft: 10}}/>
+          </View>
+        }
+        rightComponent={null} />
+        {tracks ? 
+        <TrackList music={trackItemsMachineGirl}/>
+        : albums ? 
+        <AlbumList music={props.albumList} />
+        : artists ? 
+        <ArtistList music={props.artistList} />
+        : 
+        <Playlists music={props.playlists} />
+        }
+        
+
 
 
         

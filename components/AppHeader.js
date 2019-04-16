@@ -8,18 +8,14 @@ import Dropdown from './Dropdown'
 
 const AppHeader = (props) => (
 
-    <Header 
-    leftComponent={<Dropdown 
-                        title={"Sort By"}
-                        selectableOptionsText={["Title", "Album", "Artist", "Duration", "Ascending"]} /* I will be adding more to this in the future - importing my own NPM component */ 
-                    />
-                   }
+    <Header
         // leftContainerStyle={{position: 'absolute', zIndex: 5}}
+        leftComponent = {props.leftComponent}
         centerComponent={ { text: props.headerText, style: { color: 'white', fontSize: 18, fontWeight: 'bold' } } }
                 containerStyle={{ backgroundColor: Colors.darkTheme.tabColor,
                     borderBottomWidth: 0
             }}
-        rightComponent={<MaterialCommunityIcons name={"settings"} size={20} color="white" style={{paddingRight: 8}}/> }
+        rightComponent={props.rightComponent}
     />
 )
 

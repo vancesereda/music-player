@@ -12,7 +12,7 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
   darkTheme: {
-    tabColor: 'rgba(45,45,45,0.955)',
+    tabColor: 'rgba(35,35,35,0.955)',
     listColor: 'rgba(25,25,25,0.9)',
     textColor: 'rgba(255,255,255,0.95)'
   }

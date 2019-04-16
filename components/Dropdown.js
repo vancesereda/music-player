@@ -27,27 +27,7 @@ class Dropdown extends Component {
             </View>
             </TouchableOpacity>
 
-        {/* {this.state.dropdownOpen ? 
-            //     <View 
-            //     style={styles.optionsView}>
-            //     <Text style={styles.titleText} >{this.props.title}</Text>
-            //     <View style={{backgroundColor: "black"}} onPress={this.dropDownOpen}>
-                
-            //         {this.props.selectableOptionsText.map((option,index) => (
-                        
-            //                 <Button key={index} title={option} style={styles.text} onPress={this.setVisible}/>
-                        
-            //         ))}
 
-            //     </View>
-            //     </View>:
-            // null
-           ''
-            : null
-
-
-
-        } */}
         </View>
 
 
