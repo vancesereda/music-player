@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from 'react-native-elements'
 import Colors from '../constants/Colors'
-import { Ionicons } from '@expo/vector-icons' 
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons' 
 import { View } from 'react-native'
 import Dropdown from './Dropdown'
 
@@ -19,6 +19,7 @@ const AppHeader = (props) => (
                 containerStyle={{ backgroundColor: Colors.darkTheme.tabColor,
                     borderBottomWidth: 0
             }}
+        rightComponent={<MaterialCommunityIcons name={"settings"} size={20} color="white" style={{paddingRight: 8}}/> }
     />
 )
 
