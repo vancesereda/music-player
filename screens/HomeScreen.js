@@ -7,9 +7,10 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  Dimensions
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { WebBrowser } from 'expo';
 import SearchBar from '../components/SearchBar'
 import AppHeader from '../components/AppHeader'
@@ -53,6 +54,7 @@ export default class HomeScreen extends React.Component {
     this.state = {
       selection: 'Tracks'
     }
+    
   }
 
   static navigationOptions = {
@@ -65,13 +67,17 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
     return (
       <View style={{flex: 1, backgroundColor: "black"}}>
         {/* <AppHeader headerText="Your Library" modal={true} /> */}
-        <AppHeader leftComponent=
-            {<ModalComponent selection={selection} _changeSelection={this._changeSelection}/>  } 
-            rightComponent={<View></View>}
+        <AppHeader /* leftComponent=
+            {<ModalComponent selection={selection} _changeSelection={this._changeSelection} />  }  */
+            headerText={'Library'}
+            width={width} 
+
+            rightComponent={<MaterialCommunityIcons name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
          />
         <TrackList music={music.trackItemsMachineGirl} />
         {/*selection === 'Tracks' ? 

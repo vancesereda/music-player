@@ -12,8 +12,8 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
   darkTheme: {
-    tabColor: 'rgba(35,35,35,0.955)',
-    listColor: 'rgba(25,25,25,0.9)',
+    tabColor: '#3e4149',
+    listColor: '#dd3f0f',
     textColor: 'rgba(255,255,255,0.95)'
   }
 };

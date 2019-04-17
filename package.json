@@ -17,6 +17,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
     "react-native-fs": "^2.13.3",
+    "react-native-linear-gradient": "^2.5.4",
     "react-native-modal": "^9.0.0",
     "react-native-touchable-scale": "^2.0.0",
     "react-native-view-overflow": "^0.0.4",

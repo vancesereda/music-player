@@ -20,7 +20,7 @@ const TrackList = ({music}) => (
                     subtitle={music.artist}
                     titleStyle={{color: Colors.darkTheme.textColor, fontWeight: 'bold'}}
                     rightSubtitle={music.runTime}
-                    containerStyle={{ backgroundColor: `${key%2 ? `rgba(12,12,12,1)` : `rgba(10,10,10,1)`}`}}
+                    containerStyle={{ backgroundColor: `${key%2 ? `rgba(55,55,55,1)` : `rgba(50,50,50,1)`}`}}
                     subtitleStyle={{color: 'white'}}
                     rightSubtitleStyle={{color: 'white', paddingTop: 10}}
                 />

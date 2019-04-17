@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import AppHeader from '../components/AppHeader';
 import SearchBar from '../components/SearchBar';
@@ -27,11 +27,13 @@ export default class SearchScreen extends React.Component {
   }
   render() {
     return (
-      <View style={{flex: 1 }}>
-        <AppHeader headerText={"Search Youtube"} modal={true}/>
+      <View style={styles.container}>
+        {/* <AppHeader headerText={'Search Youtube'}   /> */}
+     
         <SearchBar onPressSearch={this.onPressSearch}
                     loading = {this.state.loading}
         />
+       
             
         <VideoList videos={this.state.videos} /> 
       </View>
@@ -42,7 +44,7 @@ export default class SearchScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#000',
+    paddingTop: 25,
+    backgroundColor: 'gray',
   },
 });
