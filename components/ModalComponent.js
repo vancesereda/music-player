@@ -1,8 +1,8 @@
-
-import { TouchableOpacity, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import Modal from 'react-native-modal';
-import Checkbox from ''
+import { Checkbox } from 'react-native-elements'
 
 
 export default class ModalComponent extends Component {
@@ -16,35 +16,41 @@ export default class ModalComponent extends Component {
     }
 
 
+    _toggleModal = () => {
+
+        this.setState({isVisible: !this.state.isVisible})
+    }
     _changeSelection = (selection) => {
         this.props._changeSelection(selection)
-        this.setState({isVisible: !this.state.isVisible})
+        this._toggleModal();
     }
 
     render(){
+        const { selection } = this.props;
         return (
-      
-        <View style={{flex: 1, flexDirection: 'row', paddingTop: 20, paddingLeft: 5}}>
-        <TouchableOpacity onPress={()=>this.setState({isOpen: !this.state.isVisible})}>
-            <Text style={{color:"white", fontSize: 16, fontWeight: 'bold'}}>{selection}</Text> 
+        <View>
+        <View >
+        <TouchableOpacity onPress={this._toggleModal} style={{flex: 1, flexDirection: 'row', paddingTop: 20, paddingLeft: 5}}>
+
+            <Text style={{color:"white", fontSize: 18, fontWeight: 'bold'}}>{selection}</Text> 
             
             <Ionicons name={'md-arrow-dropdown'} size={20} style={{color: 'white', paddingLeft: 10}}/>
         </TouchableOpacity>
-
-        <Modal isVisible={this.state.isVisible}>
-        <View style={{ flex: 1 }}>
-            <Text>Hello!</Text>
-            <TouchableOpacity onPress={()=>this._changeSelection(selection)}>
-              <Text>Hide me!</Text> {this.props.whatever(true)}
-            </TouchableOpacity>
-          </View>
-
-
-
-
-        </Modal>
-
         </View>
+
+        <Modal isVisible={this.state.isVisible} style={styles.modalContent} hasBackdrop={true} backdropOpacity={0.4} onBackdropPress={this._toggleModal}>
+        <View style={styles.modalView}>
+            <View styles={styles.modalDialog}>
+                <Text style={styles.modalText}>Hello!</Text>
+                <TouchableOpacity onPress={this._toggleModal}>
+                <Text style={styles.modalText}>Hide me!</Text>
+                </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        </View>
+
+        
   
 
 
@@ -54,3 +60,29 @@ export default class ModalComponent extends Component {
     }
   
 }
+
+
+const styles = StyleSheet.create({
+    modalContent: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalView: {
+        height: 300,
+        width: 300,
+        backgroundColor: 'rgba(200,200,200,1)',
+        borderWidth: 2,
+        borderStyle: 'solid',
+        borderRadius: 5,
+        borderColor: 'rgba(100,100,100,1)'
+    },
+    modalText: {
+        fontSize: 30,
+        color: 'black',
+        margin: 10,
+    },
+    modalDialog: {
+
+    }
+})

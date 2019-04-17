@@ -58,7 +58,8 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
- 
+
+
   _changeSelection = (selection) => {
     this.setState({selection})
   }
@@ -68,13 +69,12 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: "black"}}>
         {/* <AppHeader headerText="Your Library" modal={true} /> */}
-        <AppHeader leftComponent={
-
-          <ModalComponent selectionText={selection}/>
-          
-        }
-        rightComponent={null} />
-        {selection === 'Tracks' ? 
+        <AppHeader leftComponent=
+            {<ModalComponent selection={selection} _changeSelection={this._changeSelection}/>  } 
+            rightComponent={<View></View>}
+         />
+        <TrackList music={music.trackItemsMachineGirl} />
+        {/*selection === 'Tracks' ? 
         <TrackList music={trackItemsMachineGirl}/>
         : selection === 'Albums' ? 
         <AlbumList music={props.albumList} />
@@ -82,7 +82,7 @@ export default class HomeScreen extends React.Component {
         <ArtistList music={props.artistList} />
         : 
         <Playlists music={props.playlists} />
-        }
+      */}
         
         
       </View>
