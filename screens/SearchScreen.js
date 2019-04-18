@@ -1,39 +1,89 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
-import AppHeader from '../components/AppHeader';
+import { StyleSheet, View, Dimensions, Text, ScrollView , TouchableOpacity} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import VideoList from '../components/VideoList';
+import { MaterialCommunityIcons  } from '@expo/vector-icons'
+import Youtube from '../apis/Youtube';
+
+
+
+// const previousSearches = ["majority report", "john coltrane", "wayne shorter"]
+
 
 export default class SearchScreen extends React.Component {
-  state = {
-    loading: false,
-    videos: []
+  
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      loading: false,
+      videos: [],
+      searching: false,
+      oldSearches: ["majority report", "john coltrane", "wayne shorter"]
+    }
   }
   static navigationOptions = {
     header: null,
   };
 
-  onPressSearch = (term) => {
+  onSearch = (term) => {
     this.searchYT(term);
   }
+  onPress = (state) => {
+    this.setState({searching: state})
+  }
 
-  searchYT = term => {
+  searchYT = async term => {
+    console.log(term)
+
+    // previousSearches.push(term)
     this.setState({loading: true})
-    YTSearch({key: API_KEY, term }, videos => {
-      console.log(videos);
-      this.setState(({loading: false, videos }))
-    })
+
+    const response = await Youtube.get("/search", {
+      params: {
+        q: term
+    }}).then(res=> console.log(res.data.items))
+    
+    
+
+
+
   }
   render() {
     return (
       <View style={styles.container}>
         {/* <AppHeader headerText={'Search Youtube'}   /> */}
      
-        <SearchBar onPressSearch={this.onPressSearch}
-                    loading = {this.state.loading}
+        <SearchBar onSearch={this.onSearch}
+                    onPress={this.onPress}
+                    loading={this.state.loading}
+                    oldSearches={this.state.previousSearches}
         />
-       
+        <ScrollView style={{flex: 1, flexDirection: 'column', paddingBottom: 0, marginBottom: 0}}>
+         {/* this.state.searching ?
+            this.state.oldSearches.map((term, idx) => 
+
+                <View key={idx} style={styles.oldSearches}>
+                <TouchableOpacity onPress={()=>this.searchYT(term)}>
+                 
+                    <MaterialCommunityIcons name={'reload'} size={30} style={styles.iconStyleStart}/>
+                  
+                
+                    <Text style={styles.oldSearchText}>{term}</Text>
+                  
+                 
+                    <MaterialCommunityIcons name={'arrow-top-left'} size={30} style={styles.iconStyleEnd} />
+                </TouchableOpacity>
+                </View>
+            )
+         : null*/}
+
+
+
+
+
+
+        </ScrollView>
             
         <VideoList videos={this.state.videos} /> 
       </View>
@@ -47,4 +97,31 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     backgroundColor: 'gray',
   },
+  iconStyleStart: {
+    color: "black", 
+    marginLeft: 5, 
+    marginRight: 10,
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
+  iconStyleEnd: {
+    color: "black", 
+    marginLeft: 5, 
+    marginRight: 10,
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  oldSearchText: {
+      fontSize: 16,
+      flex: 6,
+      color: "rgba(0,0,0,0.8)"
+      
+  },
+  oldSearches: {
+      flex: 1, 
+      flexDirection: 'row', 
+      justifyContent: 'center',
+      alignItems: 'stretch',
+     
+  }
 });

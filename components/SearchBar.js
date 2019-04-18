@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-import { View, TextInput} from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+
+
+
 
 class SearchBar extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            term: '',
+        this.state= {
+            term: 'Majority Report',
+            searching: false
         }
     }
 
@@ -20,20 +24,18 @@ class SearchBar extends Component {
         } = styles;
         return (
             <View style={containerStyle}>
-                <Ionicons name={'md-search'} size={20} style={{color: "black", paddingTop: 13, marginLeft: 5, marginRight: 10}} />
+                <Ionicons name={'md-search'} size={20} style={styles.iconStyle} />
                 <TextInput
                     style={searchTextStyle}
                     onChangeText={term=>this.setState({ term })}
                     value={this.state.term}
                     placeholder={'Search'}
                     placeholderTextColor={'white'}
-                    returnKeyLabel={'search'}
+                    returnKeyType="search"
+                    onSubmitEditing={()=>this.props.onSearch(this.state.term)}
+                    onFocus={()=>this.props.onPress(true)}
                 />
-                {/* <Button 
-                    buttonStyle={buttonStyle}
-                    title={this.props.loading ? `Loading`: `Search`}
-                    onPress={()=>this.props.onPressSearch(this.state.term)}
-                /> */}
+               
 
             </View>
         )
@@ -61,6 +63,21 @@ const styles = {
     buttonStyle: {
         height: 30,
         marginBottom: 8
+    },
+    iconStyle: {
+        color: "black", 
+        paddingTop: 13, 
+        marginLeft: 5, 
+        marginRight: 10
+    },
+    oldSearchText: {
+        fontSize: 12,
+    },
+    oldSearches: {
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        alignItems: 'center'
     }
 }
 

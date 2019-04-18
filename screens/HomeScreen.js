@@ -15,7 +15,6 @@ import { WebBrowser } from 'expo';
 import SearchBar from '../components/SearchBar'
 import AppHeader from '../components/AppHeader'
 import VideoList from '../components/VideoList'
-import YTSearch from 'youtube-api-search'
 import TrackList from '../components/TrackList'
 import ModalComponent from '../components/ModalComponent'
 
@@ -45,7 +44,6 @@ const music = {
   trackItemsMachineGirl
 }
 
-const API_KEY = 'AIzaSyCx2WmYgEsrUwU-uGhT_Z3WS7x-qP2m0mw'
 
 export default class HomeScreen extends React.Component {
 
