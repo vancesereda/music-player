@@ -17,8 +17,9 @@ const VideoListItem = ({video}) => (
     // </View>
     <ListItem 
         leftAvatar={{ source: {uri: video.snippet.thumbnails.medium.url}}}
-        title={video.snippet.title}
+        title={video.snippet.title.replace('&#39;', "'")}
         subtitle={video.snippet.channelTitle}
+        containerStyle={styles.containerStyle}
     />
 
 
@@ -28,6 +29,11 @@ const styles = {
     imageStyle: {
         alignSelf: 'stretch',
         height: 180
+    },
+    containerStyle: {
+        backgroundColor: 'rgba(220,220,220,1)',
+        borderRadius: 2,
+        borderBottomWidth: 1
     }
 }
 
