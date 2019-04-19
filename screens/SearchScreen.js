@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Text, ScrollView , TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Dimensions, Text, ScrollView , TouchableOpacity, Button } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import VideoList from '../components/VideoList';
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
 import Youtube from '../apis/Youtube';
+import axios from 'axios';
 
 
 
@@ -33,7 +34,7 @@ export default class SearchScreen extends React.Component {
     this.setState({searching: state})
   }
 
-  searchYT = async term => {
+  searchYT = async (term) => {
     console.log(term)
 
     // previousSearches.push(term)
@@ -42,13 +43,18 @@ export default class SearchScreen extends React.Component {
     const response = await Youtube.get("/search", {
       params: {
         q: term
-    }}).then(res=> console.log(res.data.items))
-    
-    
-
-
+    }}).then(res=> {
+      console.log(res.data.items)
+    }).catch(e=>console.log(e))
 
   }
+
+  getVideoInfo = async (link) => {
+    const response = await axios.get(`https://youtube-video-info.herokuapp.com/${link}`).then(res=>{
+      console.log(res.data)
+    }).catch(e=>console.log(e))
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -60,6 +66,9 @@ export default class SearchScreen extends React.Component {
                     oldSearches={this.state.previousSearches}
         />
         <ScrollView style={{flex: 1, flexDirection: 'column', paddingBottom: 0, marginBottom: 0}}>
+          <View>
+            <Button title="Test Link" onPress={()=>this.getVideoInfo('rcgzsbyiy4s')} />
+          </View>
          {/* this.state.searching ?
             this.state.oldSearches.map((term, idx) => 
 
