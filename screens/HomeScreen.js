@@ -69,67 +69,17 @@ export default class HomeScreen extends React.Component {
     const { selection } = this.state;
     return (
       <View style={{flex: 1, backgroundColor: "black"}}>
-        {/* <AppHeader headerText="Your Library" modal={true} /> */}
-        <AppHeader /* leftComponent=
-            {<ModalComponent selection={selection} _changeSelection={this._changeSelection} />  }  */
+        <AppHeader
             headerText={'Library'}
             width={width} 
-
             rightComponent={<MaterialCommunityIcons name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
          />
         <TrackList music={music.trackItemsMachineGirl} />
         <Button onPress={this._selectFile} title={'Select File'} />
-        {/*selection === 'Tracks' ? 
-        <TrackList music={trackItemsMachineGirl}/>
-        : selection === 'Albums' ? 
-        <AlbumList music={props.albumList} />
-        : selection ===  'Artists' ? 
-        <ArtistList music={props.artistList} />
-        : 
-        <Playlists music={props.playlists} />
-      */}
-        
         
       </View>
     );
   }
-
-
-
-
-
-  // // _maybeRenderDevelopmentModeWarning() {
-  // //   if (__DEV__) {
-  // //     const learnMoreButton = (
-  // //       <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-  // //         Learn more
-  // //       </Text>
-  // //     );
-
-  // //     return (
-  // //       <Text style={styles.developmentModeText}>
-  // //         Development mode is enabled, your app will be slower but you can use useful development
-  // //         tools. {learnMoreButton}
-  // //       </Text>
-  // //     );
-  // //   } else {
-  // //     return (
-  // //       <Text style={styles.developmentModeText}>
-  // //         You are not in development mode, your app will run at full speed.
-  // //       </Text>
-  // //     );
-  // //   }
-  // // }
-
-  // _handleLearnMorePress = () => {
-  //   WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  // };
-
-  // _handleHelpPress = () => {
-  //   WebBrowser.openBrowserAsync(
-  //     'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-  //   );
-  // };
 }
 
 
