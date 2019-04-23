@@ -8,6 +8,7 @@ const VideoList = ({videos}) => (
     <ScrollView>
         <View style={styles.containerStyle}>
             {videos.map((v)=>
+               
                 <VideoListItem 
                     key={v.etag}
                     video={v}

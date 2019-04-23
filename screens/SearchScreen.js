@@ -43,14 +43,13 @@ export default class SearchScreen extends React.Component {
       params: {
         q: term
     }}).then(res=> {
-      console.log(JSON.stringify(res.data.items))
       this.setState({videos: res.data.items})
     }).catch(e=>console.log(e))
 
   }
 
   getVideoInfo = async (link) => {
-    const response = await axios.get(`https://youtube-video-info.herokuapp.com/${link}`).then(res=>{
+    const response = await axios.get(`https://youtube-video-info.herokuapp.com/api?q=${link}`).then(res=>{
       console.log(res.data)
     }).catch(e=>console.log(e))
   }

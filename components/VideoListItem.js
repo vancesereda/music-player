@@ -1,29 +1,47 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 
-const VideoListItem = ({video}) => (
+class VideoListItem extends Component {
     
-    // <View>
-    //     <Card>
-    //     <Image 
-    //         style={styles.imageStyle}
-    //         source={{uri: video.snippet.thumbnails.medium.url}}
-    //     />
-    //     <Text>{video.snippet.title}</Text>
-    //     <Text>{video.snippet.chanelTitle}</Text>
-    //     <Text>{video.snippet.description}</Text>
-    //     </Card>
-    // </View>
-    <ListItem 
-        leftAvatar={{ source: {uri: video.snippet.thumbnails.medium.url}}}
-        title={video.snippet.title.replace('&#39;', "'")}
-        subtitle={video.snippet.channelTitle}
-        containerStyle={styles.containerStyle}
-    />
 
+    constructor(props) {
+        super(props);
+        this.state={
+            dropdown: false
+        }
+    }
+    _renderDropdownView = () => { 
+       
+      if (this.state.dropdown) {
+      return ( 
+        <View style={{height: 75, backgroundColor: 'rgba(230,230,230,1)'}}>
+            <Text>Testing Testing</Text>
+        </View>
+        )
+      }
+    }
 
-)
+    render() {
+        const { snippet } = this.props.video;
+        return (
+        <View>
+            <TouchableOpacity onPress={()=>this.setState({dropdown: !this.state.dropdown})}>
+                
+                <ListItem 
+                    leftAvatar={{ source: {uri: snippet.thumbnails.medium.url}}}
+                    title={snippet.title.replace('&#39;', "'")}
+                    subtitle={snippet.channelTitle}
+                    containerStyle={styles.containerStyle}
+                />
+                {this._renderDropdownView()}
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+}
+
 
 const styles = {
     imageStyle: {
