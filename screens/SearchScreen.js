@@ -34,9 +34,7 @@ export default class SearchScreen extends React.Component {
   }
 
   searchYT = async (term) => {
-    console.log(term)
-
-    // previousSearches.push(term)
+    
     this.setState({loading: true})
 
     const response = await Youtube.get("/search", {
@@ -57,41 +55,13 @@ export default class SearchScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <AppHeader headerText={'Search Youtube'}   /> */}
      
         <SearchBar onSearch={this.onSearch}
                     onPress={this.onPress}
                     loading={this.state.loading}
                     oldSearches={this.state.previousSearches}
         />
-        {/* <ScrollView style={{flex: 1, flexDirection: 'column', paddingBottom: 0, marginBottom: 0}}> */}
-          {/* <View>
-            <Button title="Test Link" onPress={()=>this.getVideoInfo('rcgzsbyiy4s')} />
-          </View> */}
-         {/* this.state.searching ?
-            this.state.oldSearches.map((term, idx) => 
-
-                <View key={idx} style={styles.oldSearches}>
-                <TouchableOpacity onPress={()=>this.searchYT(term)}>
-                 
-                    <MaterialCommunityIcons name={'reload'} size={30} style={styles.iconStyleStart}/>
-                  
-                
-                    <Text style={styles.oldSearchText}>{term}</Text>
-                  
-                 
-                    <MaterialCommunityIcons name={'arrow-top-left'} size={30} style={styles.iconStyleEnd} />
-                </TouchableOpacity>
-                </View>
-            )
-         : null*/}
-
-
-
-
-
-
-        {/* </ScrollView> */}
+        
             
         <VideoList videos={this.state.videos} /> 
       </View>

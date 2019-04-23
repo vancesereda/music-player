@@ -14,19 +14,7 @@ const buttons = [
     "Artists",
     "Playlists"
 ]
-
-// const ButtonStyled = styled.View`
-
-// //     max-width: 25%,
-// //     display: flex
-
-
-// // `
 export default class MusicViews extends React.Component {
-
-    onPress = () => {
-        Alert.alert('Boys Now')
-    }
 
     render() {
         return (
@@ -35,17 +23,6 @@ export default class MusicViews extends React.Component {
                     centerComponent={{text: 'Search Youtube', style: { color: 'white'}}}
                     outerContainerStyles={{ backgroundColor: '#e62117'}}
                 />
-
-
-
-
-
-
-                {/* {buttons.map((obj,i) => {
-                    return (
-                        <Button title={obj} key={i} color="#000000" onPress={this.onPress}/>
-                    )
-                })} */}
 
             </View>
         )
