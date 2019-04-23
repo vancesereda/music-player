@@ -10,6 +10,7 @@ import {
   Button,
   Dimensions
 } from 'react-native';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { WebBrowser } from 'expo';
 import SearchBar from '../components/SearchBar'
@@ -50,7 +51,8 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: 'Tracks'
+      selection: 'Tracks',
+      file: false
     }
     
   }
@@ -60,10 +62,8 @@ export default class HomeScreen extends React.Component {
   };
 
 
-  _changeSelection = (selection) => {
-    this.setState({selection})
-  }
-
+  
+  
   render() {
     const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
@@ -78,6 +78,7 @@ export default class HomeScreen extends React.Component {
             rightComponent={<MaterialCommunityIcons name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
          />
         <TrackList music={music.trackItemsMachineGirl} />
+        <Button onPress={this._selectFile} title={'Select File'} />
         {/*selection === 'Tracks' ? 
         <TrackList music={trackItemsMachineGirl}/>
         : selection === 'Albums' ? 

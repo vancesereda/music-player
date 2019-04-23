@@ -5783,6 +5783,11 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
+pod-installer@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/pod-installer/-/pod-installer-0.0.0.tgz#363290ec9f2eb7a88bc3e1f229793efdcc7c81c6"
+  integrity sha512-5GFFvaXwESMx0QoopeJqFZzi4xOqI86Lh65WqWAVuZNorUio4/ZBRx7AQBfwnBwOeGA/JjXHP+nHZmSKWGoG1g==
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
@@ -5963,6 +5968,11 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
+react-native-dropdown@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown/-/react-native-dropdown-0.0.6.tgz#f4b899b4082c4823340c7377fbe73bc01399148d"
+  integrity sha1-9LiZtAgsSCM0DHN3++c7wBOZFI0=
+
 react-native-elements@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.1.0.tgz#f99bcda4459a886f3ab4591c684c099d37aedf2b"
@@ -5975,6 +5985,13 @@ react-native-elements@^1.1.0:
     prop-types "^15.5.8"
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
+
+react-native-file-selector@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-file-selector/-/react-native-file-selector-0.0.6.tgz#ced266a44ed50c18f7c96f5e25273836064058e3"
+  integrity sha512-Xb3LOg3cCpjcIFtavPvEkuE7VAp/VMZOUmCNviSPOKbt+lFukRJSbIHNivhThYIkKPCHy/RP8rpkz23vJjE3Qw==
+  dependencies:
+    pod-installer "0.0.0"
 
 react-native-fs@^2.13.3:
   version "2.13.3"

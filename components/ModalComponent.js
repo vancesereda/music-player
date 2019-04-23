@@ -10,53 +10,34 @@ export default class ModalComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            isVisible: false,
-        };
     }
 
 
-    _toggleModal = () => {
+    
 
-        this.setState({isVisible: !this.state.isVisible})
-    }
-    _changeSelection = (selection) => {
-        this.props._changeSelection(selection)
-        this._toggleModal();
-    }
+    
 
     render(){
-        const { selection } = this.props;
+        const { selection, isVisible } = this.props;
         return (
-        <View>
-        <View >
-            <TouchableOpacity onPress={this._toggleModal} style={styles.modalToggle}>
-                {/* <Text style={styles.selectionText}>{selection}</Text>  */}
-                <MaterialIcons name={'filter-list'} size={22} style={styles.icon}/>
-            </TouchableOpacity>
-            {/* <Text style={styles.mainText}></Text> */}
-        </View>
-
         <Modal 
             animationIn={'zoomInUp'}
             animationOut={'zoomOutDown'}
-            isVisible={this.state.isVisible} 
+            isVisible={isVisible} 
             style={styles.modalContent} 
             hasBackdrop={true} 
-            backdropOpacity={0} 
-            onBackdropPress={this._toggleModal}
+            backdropOpacity={0.5} 
+            onBackdropPress={this.props._toggleModal}
         >
             <View style={styles.modalView}>
                 <View styles={styles.modalDialog}>
                     <Text style={styles.modalText}>Hello!</Text>
-                    <TouchableOpacity onPress={this._toggleModal}>
+                    <TouchableOpacity onPress={this.props._toggleModal}>
                         <Text style={styles.modalText}>Hide me!</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </Modal>
-        </View>
-
         
   
 
@@ -76,8 +57,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalView: {
-        height: 200,
-        width: 200,
+        height: 300,
+        width: 300,
         backgroundColor: 'rgba(240,240,240,1)',
         borderWidth: 2,
         borderStyle: 'solid',
