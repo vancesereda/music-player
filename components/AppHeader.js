@@ -14,7 +14,8 @@ const AppHeader = (props) => (
                             text: props.headerText, 
                             style: { 
                                 flex: 1, color: 'white', fontSize: 22, paddingLeft: 5,
-                                paddingTop: 16,
+                                marginTop: -10
+                                
                             }
                         }}
 
@@ -28,7 +29,7 @@ const AppHeader = (props) => (
 const styles = StyleSheet.create({
     container: { 
         backgroundColor: Colors.darkTheme.tabColor,
-        
+        height: 50,
         borderBottomWidth: 0,
         
     }

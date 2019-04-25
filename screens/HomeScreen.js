@@ -67,12 +67,8 @@ export default class HomeScreen extends React.Component {
     const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
     return (
-      <View style={{flex: 1, backgroundColor: "black"}}>
-        <AppHeader
-            headerText={'Library'}
-            width={width} 
-            rightComponent={<Icon name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
-         />
+      <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
+        <AppHeader headerText={'Library'} rightComponent={<Icon name={'settings-outline'} size={22} color="white" style={{marginBottom: 20}} />}/>
         <TrackList music={music.trackItemsMachineGirl} />
         
       </View>

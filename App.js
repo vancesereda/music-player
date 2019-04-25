@@ -8,6 +8,8 @@
 import React, { Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View , Text} from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
+import AppHeader from './components/AppHeader'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -23,7 +25,12 @@ export default class App extends Component {
     render() {
       return (
       <View style={styles.container}>
-      <AppNavigator />
+        {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
+        {/* <AppHeader
+            rightComponent={<Icon name={'settings-outline'} size={22} color="white" />}
+         /> */}
+        <AppNavigator />
+        
       </View>
     )}
   }
@@ -52,6 +59,10 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(55,55,55,1)',
+    // paddingTop: 0,
+    // paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0,
   },
 });
