@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from 'react-native-vector-icons'
 import Modal from 'react-native-modal';
 import { Checkbox } from 'react-native-elements'
 

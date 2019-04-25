@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+// import {Icon as MaterialCommunityIcons} from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Ionicons'
 
 
 
@@ -24,7 +25,7 @@ class SearchBar extends Component {
         } = styles;
         return (
             <View style={containerStyle}>
-                <Ionicons name={'md-search'} size={20} style={styles.iconStyle} />
+                <Icon name={'md-search'} size={20} style={styles.iconStyle} />
                 <TextInput
                     style={searchTextStyle}
                     onChangeText={term=>this.setState({ term })}

@@ -1,11 +1,11 @@
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import Colors from '../constants/Colors';
 
 export default class TabBarIcon extends React.Component {
   render() {
     return (
-      <MaterialIcons
+      <Icon
         name={this.props.name}
         size={26}
         style={{ marginBottom: -3 }}

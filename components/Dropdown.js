@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Modal, Text, TouchableOpacity, View, Alert, StyleSheet, Button } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 
 
 class Dropdown extends Component {

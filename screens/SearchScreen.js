@@ -2,10 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Dimensions, Text, ScrollView , TouchableOpacity, Button } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import VideoList from '../components/VideoList';
-import { MaterialCommunityIcons  } from '@expo/vector-icons'
+import { MaterialCommunityIcons  } from 'react-native-vector-icons'
 import Youtube from '../apis/Youtube';
 import axios from 'axios';
-import { isTaskRegisteredAsync } from 'expo-task-manager';
 
 
 // const previousSearches = ["majority report", "john coltrane", "wayne shorter"]

@@ -11,8 +11,7 @@ import {
   Dimensions
 } from 'react-native';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { WebBrowser } from 'expo';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import SearchBar from '../components/SearchBar'
 import AppHeader from '../components/AppHeader'
 import VideoList from '../components/VideoList'
@@ -72,10 +71,9 @@ export default class HomeScreen extends React.Component {
         <AppHeader
             headerText={'Library'}
             width={width} 
-            rightComponent={<MaterialCommunityIcons name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
+            rightComponent={<Icon name={'settings-outline'} size={22} color="white" style={{marginTop: 0, paddingRight: 5}} />}
          />
         <TrackList music={music.trackItemsMachineGirl} />
-        <Button onPress={this._selectFile} title={'Select File'} />
         
       </View>
     );

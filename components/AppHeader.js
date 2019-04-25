@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from 'react-native-elements'
 import Colors from '../constants/Colors'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons' 
+import { Ionicons, MaterialCommunityIcons } from 'react-native-vector-icons' 
 import { View , StyleSheet, Dimensions } from 'react-native'
 import Dropdown from './Dropdown'
 

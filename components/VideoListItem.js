@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Share, TouchableWithoutFeedback } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ModalComponent from './ModalComponent'
 import Axios from 'axios';
 const icons = ["playlist-plus", "play", "share", "download"];
@@ -79,7 +79,7 @@ const DropdownView = (props) => {
               <TouchableWithoutFeedback onPress={(e)=>e.preventDefault()} key={idx}>
                   <View style={styles.iconTextView}> 
                       <TouchableOpacity onPress={()=>props._handleTouch(idx)} >
-                          <MaterialCommunityIcons name={icon} size={45} color={'rgba(60,60,60,1)'} />
+                          <Icon name={icon} size={45} color={'rgba(60,60,60,1)'} />
                       </TouchableOpacity>
                       <Text style={styles.dropdownText}>{text[idx]}</Text>
                   </View>
