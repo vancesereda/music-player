@@ -14,6 +14,7 @@ const AppHeader = (props) => (
                             text: props.headerText, 
                             style: { 
                                 flex: 1, color: 'white', fontSize: 22, paddingLeft: 5,
+                                fontWeight: "bold",
                                 marginTop: -10
                                 
                             }

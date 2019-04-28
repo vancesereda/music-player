@@ -68,7 +68,7 @@ export default class HomeScreen extends React.Component {
     const { selection } = this.state;
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
-        <AppHeader headerText={'Library'} rightComponent={<Icon name={'settings-outline'} size={22} color="white" style={{marginBottom: 20}} />}/>
+        <AppHeader headerText={'Library'} rightComponent={<HeaderIcons />}/>
         <TrackList music={music.trackItemsMachineGirl} />
         
       </View>
@@ -77,6 +77,17 @@ export default class HomeScreen extends React.Component {
 }
 
 
+
+const HeaderIcons = (props) => (
+  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', marginBottom: 20, width: Dimensions.get('window').width/4 , paddingLeft: 20}}>
+  <TouchableOpacity onPress={()=>null}>
+    <Icon name={'search-web'} size={26} color="white"  />
+  </TouchableOpacity>
+  <TouchableOpacity onPress={()=>null}>
+    <Icon name={'settings-outline'} size={26} color="white" style={{marginLeft: 25}} />
+  </TouchableOpacity>
+  </View>
+)
 
 const styles = StyleSheet.create({
   container: {
