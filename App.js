@@ -40,7 +40,6 @@ class App extends Component {
     super(props);
   }
     render() {
-      console.log('dom decarlo')
       return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
@@ -48,7 +47,7 @@ class App extends Component {
             rightComponent={<Icon name={'settings-outline'} size={22} color="white" />}
          /> */}
         
-        <AppContainer navigation={this.props.navigation} />
+        <AppContainer />
         
       </View>
     )}

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
-// import {Icon as MaterialCommunityIcons} from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import { withNavigation } from 'react-navigation'
 
 
 
@@ -25,6 +24,9 @@ class SearchBar extends Component {
         } = styles;
         return (
             <View style={containerStyle}>
+                <TouchableOpacity onPress={()=>this.props.navigation.navigate('HomeScreen')}>
+                    <Icon name={'md-arrow-back'} style={styles.iconStyle} size={20} />
+                </TouchableOpacity>
                 <Icon name={'md-search'} size={20} style={styles.iconStyle} />
                 <TextInput
                     style={searchTextStyle}
@@ -35,6 +37,7 @@ class SearchBar extends Component {
                     returnKeyType="search"
                     onSubmitEditing={()=>this.props.onSearch(this.state.term)}
                     onFocus={()=>this.props.onPress(true)}
+                    autoFocus={true}
                 />
                
 
@@ -53,13 +56,15 @@ const styles = {
         borderRadius: 2,
         borderBottomWidth: 3,
         borderTopWidth: 3,
+        justifyContent: 'space-around',
+        alignItems: 'center',
         borderColor: '#cccccc'
     },
     searchTextStyle: {
         flex: 1,
         fontSize: 18,
-        paddingTop: 10,
-        paddingBottom: 10
+        // paddingTop: 10,
+        // paddingBottom: 10
     },
     buttonStyle: {
         height: 30,
@@ -67,9 +72,11 @@ const styles = {
     },
     iconStyle: {
         color: "black", 
-        paddingTop: 13, 
-        marginLeft: 5, 
-        marginRight: 10
+        marginLeft: 10,
+        marginRight: 5
+        // paddingTop: 13, 
+        // marginLeft: 5, 
+        // marginRight: 10
     },
     oldSearchText: {
         fontSize: 12,
@@ -82,4 +89,4 @@ const styles = {
     }
 }
 
-export default SearchBar;
+export default withNavigation(SearchBar);

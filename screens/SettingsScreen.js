@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { View, Text , Button} from 'react-native'
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -12,6 +12,6 @@ export default class SettingsScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
-    return <View><Text>Settings</Text></View>;
+    return <View><Button onPress={()=>this.props.navigation.navigate('HomeScreen')} title={'Go Back'}></Button><Text>Settings</Text></View>;
   }
 }

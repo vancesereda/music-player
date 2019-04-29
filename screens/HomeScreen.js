@@ -68,10 +68,9 @@ class HomeScreen extends React.Component {
   render() {
     const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
-    console.log(this.props)
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
-        <AppHeader headerText={'Library'} rightComponent={<HeaderIcons navigation={this.props.navigation} />}/>
+        <AppHeader headerText={'Library'} />
         <TrackList music={music.trackItemsMachineGirl} />
         
       </View>
