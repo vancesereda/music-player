@@ -15,6 +15,10 @@ import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { createStackNavigator, createSwitchNavigator, createAppContainer  } from 'react-navigation';
+import TrackPlayer from 'react-native-track-player'
+// TrackPlayer.setupPlayer().then(() => {
+//   // The player is ready to be used
+// });
 
 
 
@@ -51,6 +55,8 @@ class App extends Component {
         
       </View>
     )}
+
+    
 }
 
 

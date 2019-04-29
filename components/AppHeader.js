@@ -28,12 +28,12 @@ const AppHeader = (props) => (
     // />
 
     <View style={styles.containerStyleDarkTheme}>
-                {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('HomeScreen')}>
-                    <Icon name={'md-arrow-back'} style={styles.iconStyle} size={20} />
-                </TouchableOpacity> */}
+                <TouchableOpacity onPress={()=>null}>
+                    <Icon name={'ios-menu'} style={styles.iconStyle} size={22} />
+                </TouchableOpacity>
                 <Text style={styles.searchTextStyle}>{props.headerText}</Text>
                 {/* <Icon name={'md-search'} size={20} style={styles.iconStyle} /> */}
-                <HeaderIcons />
+                <HeaderIcons size={22} color={'white'}/>
                 
                
 
@@ -42,27 +42,33 @@ const AppHeader = (props) => (
 )
 
 const styles = StyleSheet.create({
-    container: { 
-        backgroundColor: 'rgba(220,220,220,1)',
-        // height: 50,
+    containerStyleLightTheme: { 
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: 'rgba(240,240,240,1)',
         borderRadius: 2,
-        
-        borderBottomWidth: 3,
+        borderBottomWidth: 2,
         borderTopWidth: 3,
-        borderColor: '#cccccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#333333',
+        marginTop: -3,
+        paddingTop: 15, 
+        paddingBottom: 15
         
     },
     containerStyleDarkTheme: {
         flexDirection: 'row',
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: 'rgba(65,65,65,1)',
+        backgroundColor: 'black',
         borderRadius: 2,
         borderBottomWidth: 2,
         borderTopWidth: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#232323',
+        borderColor: 'rgba(60,60,60,1)',
         marginTop: -3,
         paddingTop: 15, 
         paddingBottom: 15
@@ -70,8 +76,9 @@ const styles = StyleSheet.create({
     searchTextStyle: {
         flex: 1,
         fontSize: 20,
-        paddingLeft: 5,
-        // fontWeight: 'bold',
+        paddingLeft: 20,
+        marginBottom: 2,
+        fontWeight: 'normal',
         color: 'white'
         
         // paddingTop: 10,
@@ -82,9 +89,9 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     iconStyle: {
-        color: "black", 
-        marginLeft: 10,
-        marginRight: 5
+        color: "white", 
+        marginLeft: 15,
+        marginRight: 10
         // paddingTop: 13, 
         // marginLeft: 5, 
         // marginRight: 10

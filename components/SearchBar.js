@@ -52,17 +52,18 @@ const styles = {
         flexDirection: 'row',
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: 'rgba(220,220,220, 1)',
+        backgroundColor: 'black',
         borderRadius: 2,
         borderBottomWidth: 3,
         borderTopWidth: 3,
         justifyContent: 'space-around',
         alignItems: 'center',
-        borderColor: '#cccccc'
+        borderColor: 'rgba(60,60,60,1)',
     },
     searchTextStyle: {
         flex: 1,
         fontSize: 18,
+        color: 'white'
         // paddingTop: 10,
         // paddingBottom: 10
     },
@@ -71,7 +72,7 @@ const styles = {
         marginBottom: 8
     },
     iconStyle: {
-        color: "black", 
+        color: "white", 
         marginLeft: 10,
         marginRight: 5
         // paddingTop: 13, 

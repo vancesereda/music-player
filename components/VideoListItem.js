@@ -56,6 +56,7 @@ class VideoListItem extends Component {
                 <ListItem 
                     leftAvatar={{ source: {uri: snippet.thumbnails.medium.url}}}
                     title={snippet.title.replace('&#39;', "'")}
+                    titleStyle={{color: 'black'}}
                     subtitle={snippet.channelTitle}
                     containerStyle={styles.containerStyle}
                 />

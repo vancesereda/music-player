@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 0,
-    backgroundColor: 'gray',
+    backgroundColor: 'rgba(160,160,160,1)',
   },
   iconStyleStart: {
     color: "black", 
