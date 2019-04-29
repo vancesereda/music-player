@@ -5,6 +5,8 @@ import VideoList from '../components/VideoList';
 import { MaterialCommunityIcons  } from 'react-native-vector-icons'
 import Youtube from '../apis/Youtube';
 import axios from 'axios';
+import Player from '../components/Player'
+
 
 
 // const previousSearches = ["majority report", "john coltrane", "wayne shorter"]
@@ -52,10 +54,13 @@ export default class SearchScreen extends React.Component {
     })
     .then(res=>{
       console.log(res.data.filter(obj=>obj.itag==='140')[0].url)
+      TrackPlayer.play({url})
       // res.data.filter(obj=>obj.itag==='140)[0].url 
 
     }).catch(e=>console.log(e))
   }
+
+
 
   render() {
     console.log(this.state)
@@ -72,6 +77,7 @@ export default class SearchScreen extends React.Component {
                     getVideoInfo={this.getVideoInfo} 
                     videoInfo={this.state.videoInfo}
         /> 
+        <Player />
       </View>
     );
   }
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 0,
-    backgroundColor: 'rgba(160,160,160,1)',
+    backgroundColor: 'rgba(50,50,50,1)',
   },
   iconStyleStart: {
     color: "black", 

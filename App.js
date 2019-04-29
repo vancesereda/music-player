@@ -40,21 +40,23 @@ const AppContainer = createAppContainer(HomeNavigator);
 AppRegistry.registerComponent('AppContainer', ()=>AppContainer)
 
 class App extends Component {
+
+
   constructor(props) {
     super(props);
   }
-    render() {
-      return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
-        {/* <AppHeader
-            rightComponent={<Icon name={'settings-outline'} size={22} color="white" />}
-         /> */}
-        
-        <AppContainer />
-        
-      </View>
-    )}
+
+
+
+  render() {
+    return (
+    <View style={styles.container}>
+      {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
+      <AppContainer />
+
+      
+    </View>
+  )}
 
     
 }
