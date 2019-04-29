@@ -6,10 +6,17 @@
  * @flow
  */
 import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View , Text} from 'react-native';
+import { Platform, StatusBar, StyleSheet, View , Text, AppRegistry} from 'react-native';
+import { withNavigation } from 'react-navigation'
 import AppNavigator from './navigation/AppNavigator';
 import AppHeader from './components/AppHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import { createStackNavigator, createSwitchNavigator, createAppContainer  } from 'react-navigation';
+
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,24 +25,37 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component {
+
+
+export const HomeNavigator = createSwitchNavigator(
+  {HomeScreen,
+    SearchScreen,
+    SettingsScreen})
+
+const AppContainer = createAppContainer(HomeNavigator);
+AppRegistry.registerComponent('AppContainer', ()=>AppContainer)
+
+class App extends Component {
   constructor(props) {
     super(props);
   }
     render() {
+      console.log('dom decarlo')
       return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
         {/* <AppHeader
             rightComponent={<Icon name={'settings-outline'} size={22} color="white" />}
          /> */}
-        <AppNavigator />
+        
+        <AppContainer navigation={this.props.navigation} />
         
       </View>
     )}
-  }
+}
 
 
+export default App;
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,

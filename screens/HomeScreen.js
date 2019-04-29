@@ -17,6 +17,8 @@ import AppHeader from '../components/AppHeader'
 import VideoList from '../components/VideoList'
 import TrackList from '../components/TrackList'
 import ModalComponent from '../components/ModalComponent'
+import {withNavigation } from 'react-navigation'
+import HeaderIcons from '../components/HeaderIcons'
 
 
 const artists = ["Machine Girl"]
@@ -45,7 +47,7 @@ const music = {
 }
 
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -66,9 +68,10 @@ export default class HomeScreen extends React.Component {
   render() {
     const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
+    console.log(this.props)
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
-        <AppHeader headerText={'Library'} rightComponent={<HeaderIcons />}/>
+        <AppHeader headerText={'Library'} rightComponent={<HeaderIcons navigation={this.props.navigation} />}/>
         <TrackList music={music.trackItemsMachineGirl} />
         
       </View>
@@ -76,18 +79,8 @@ export default class HomeScreen extends React.Component {
   }
 }
 
+export default withNavigation(HomeScreen)
 
-
-const HeaderIcons = (props) => (
-  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', marginBottom: 20, width: Dimensions.get('window').width/4 , paddingLeft: 20}}>
-  <TouchableOpacity onPress={()=>null}>
-    <Icon name={'search-web'} size={26} color="white"  />
-  </TouchableOpacity>
-  <TouchableOpacity onPress={()=>null}>
-    <Icon name={'settings-outline'} size={26} color="white" style={{marginLeft: 25}} />
-  </TouchableOpacity>
-  </View>
-)
 
 const styles = StyleSheet.create({
   container: {

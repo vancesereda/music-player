@@ -1,12 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator , withNavigation} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import Colors from '../constants/Colors';
+
 
 // const HomeStack = createStackNavigator({
 //   Home: HomeScreen,
@@ -65,6 +66,9 @@ export default AppNavigator = createStackNavigator({
   Search: {
     screen: SearchScreen, // <----
   },
+  Settings: {
+    screen: SettingsScreen,
+  }
 },
 {
   initialRouteName: 'Home',
