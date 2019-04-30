@@ -1,6 +1,6 @@
 import TrackPlayer from 'react-native-track-player'
 
-module.exports = function() {
+module.exports = async function() {
     // This service needs to be registered for the module to work
     // but it will be used later in the "Receiving Events" section
     
@@ -10,7 +10,7 @@ module.exports = function() {
     
       TrackPlayer.addEventListener('remote-pause', () => {
         TrackPlayer.pause()
-        console.log('test')
+        console.log('remote-pause event')
       });
     
       TrackPlayer.addEventListener('remote-next', () => {
@@ -22,7 +22,7 @@ module.exports = function() {
       });
     
       TrackPlayer.addEventListener('remote-stop', () => {
-        console.log('test test test')
+        console.log('remote-stop event')
         TrackPlayer.destroy()
       });
 

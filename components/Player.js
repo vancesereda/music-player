@@ -10,38 +10,60 @@ export default class Player extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            track: true,
+            artwork: null,
+            title: null,
+            artist: null,
+            playerState: null
         }
     }
     
     componentDidMount() {
-        TrackPlayer.setupPlayer();
-        TrackPlayer.updateOptions({
-            stopWithApp: true,
-            capabilities: [
-              TrackPlayer.CAPABILITY_PLAY,
-              TrackPlayer.CAPABILITY_PAUSE,
-              TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-              TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-              TrackPlayer.CAPABILITY_STOP
-            ],
-            compactCapabilities: [
-              TrackPlayer.CAPABILITY_PLAY,
-              TrackPlayer.CAPABILITY_PAUSE
-            ]
-          });
-       
-       
+        
+        TrackPlayer.setupPlayer().then(async ()=>{
+            
+            const playerState = await TrackPlayer.getState()===TrackPlayer.STATE_PLAYING;
+            this.setState({playerState})
+            TrackPlayer.updateOptions({
+                stopWithApp: false,
+                capabilities: [ 
+                TrackPlayer.CAPABILITY_PLAY,
+                TrackPlayer.CAPABILITY_PAUSE,
+                TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+                TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+                TrackPlayer.CAPABILITY_STOP
+                ],
+                compactCapabilities: [
+                TrackPlayer.CAPABILITY_PLAY,
+                TrackPlayer.CAPABILITY_PAUSE
+                ]
+                })
+            }
+        )
+        
 
           this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
             // console.warn(data)
             const { title, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack)
+            this.setState({playerState: true})
+            console.warn(await TrackPlayer.getState(), TrackPlayer.STATE_PAUSED, TrackPlayer.STATE_STOPPED,TrackPlayer.STATE_NONE,TrackPlayer.STATE_BUFFERING)
             this.setState({title, artist, artwork})
             console.log(artwork)
             // const { track, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack);
             // this.setState({title, artist, artwork });
             
         });
+
+        
+        // this.pause = TrackPlayer.addEventListener('remote-pause', () => {
+        //     TrackPlayer.pause()
+        //     console.log('remote-pause event')
+        //   });
+        this._onStateChanged = TrackPlayer.addEventListener('playback-state', (data) => {
+            this.setState({playerState: data.state})
+        })
+
+    
+    
         
 
     }
@@ -49,6 +71,7 @@ export default class Player extends Component {
     componentWillUnmount() {
         // Removes the event handler
         this.onTrackChange.remove();
+        this._onStateChanged.remove();
     }
 
 
@@ -67,19 +90,15 @@ export default class Player extends Component {
     } catch (_) {}
     }
 
-    getStateName(state) {
-    switch (state) {
-        case TrackPlayer.STATE_NONE: return 'None'
-        case TrackPlayer.STATE_PLAYING: return 'Playing'
-        case TrackPlayer.STATE_PAUSED: return 'Paused'
-        case TrackPlayer.STATE_STOPPED: return 'Stopped'
-        case TrackPlayer.STATE_BUFFERING: return 'Buffering'
+    getState = async () => {
+        return await TrackPlayer.STATE_PLAYING
     }
-    }
+
 
 
     render() {
-        if (this.state.title) {
+        console.log(this.state.playerState, this.getState())
+        if (this.state.playerState) {
         return (
         
         <View style={styles.playerStyle}>
@@ -89,7 +108,7 @@ export default class Player extends Component {
                 <ListItem 
                         
                         leftAvatar={{source: this.state.artwork ? {uri: this.state.artwork} : require('../assets/images/icon.png')}}
-                        title={this.state.title.replace('&#39;',"'") || ''}
+                        title={this.state.title ? this.state.title.replace('&#39;',"'") : ''}
                         subtitle={this.state.artist || ''}
                         titleStyle={{color: 'white', fontWeight: 'bold'}}
                         rightSubtitle={<IconSwitch />}
