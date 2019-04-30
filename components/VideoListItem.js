@@ -25,12 +25,14 @@ class VideoListItem extends Component {
 
 
     _handleTouch = (idx) => {
-        const { videoId } = this.props.video.id;
-
+        const { id: {videoId}, snippet } = this.props.video;
+        const title = snippet.title.replace(('&#39;', "'"))
         if (idx===0) { //add song to async storage object (local storage)
 
         } else if (idx===1) { //handle stream
         
+            this.props.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url)
+
         } else if (idx===2) { //handle share
 
             Share.share({message:`https://www.youtube.com/watch?v=${videoId}`})
@@ -39,7 +41,7 @@ class VideoListItem extends Component {
             
             console.log(idx)
             // this._toggleModal();
-            this.props.getVideoInfo(videoId);
+            this.props.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url);
         }
 
     }

@@ -8,8 +8,6 @@
 import React, { Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View , Text, AppRegistry} from 'react-native';
 import { withNavigation } from 'react-navigation'
-import AppNavigator from './navigation/AppNavigator';
-import AppHeader from './components/AppHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';

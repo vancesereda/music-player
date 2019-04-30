@@ -6,6 +6,7 @@ import { MaterialCommunityIcons  } from 'react-native-vector-icons'
 import Youtube from '../apis/Youtube';
 import axios from 'axios';
 import Player from '../components/Player'
+import TrackPlayer from 'react-native-track-player'
 
 
 
@@ -48,13 +49,21 @@ export default class SearchScreen extends React.Component {
 
   }
 
-  getVideoInfo = async (id) => {
+  getVideoInfo = async (id, title, channelTitle, imgUrl) => {
     const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
       params: { id }
     })
     .then(res=>{
-      console.log(res.data.filter(obj=>obj.itag==='140')[0].url)
-      TrackPlayer.play({url})
+      
+      const { url } = res.data.filter(obj=>obj.itag==='140')[0];
+      const track = {
+        id,
+        title,
+        url,
+        artist: channelTitle,
+        artwork: imgUrl
+      }
+      TrackPlayer.add(track).then(()=>TrackPlayer.play())
       // res.data.filter(obj=>obj.itag==='140)[0].url 
 
     }).catch(e=>console.log(e))

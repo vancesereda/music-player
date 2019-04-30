@@ -19,7 +19,7 @@ import TrackList from '../components/TrackList'
 import ModalComponent from '../components/ModalComponent'
 import {withNavigation } from 'react-navigation'
 import HeaderIcons from '../components/HeaderIcons'
-
+import Player from '../components/Player'
 
 const artists = ["Machine Girl"]
 const tracks = ["MG1",
@@ -72,7 +72,7 @@ class HomeScreen extends React.Component {
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
         <AppHeader headerText={'Library'} />
         <TrackList music={music.trackItemsMachineGirl} />
-        
+        <Player />
       </View>
     );
   }

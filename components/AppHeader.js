@@ -3,7 +3,6 @@ import { Header } from 'react-native-elements'
 import Colors from '../constants/Colors'
 import Icon from 'react-native-vector-icons/Ionicons' 
 import { View , StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native'
-import Dropdown from './Dropdown'
 import HeaderIcons from './HeaderIcons'
 
 
