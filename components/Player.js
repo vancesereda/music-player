@@ -13,7 +13,9 @@ export default class Player extends Component {
             artwork: null,
             title: null,
             artist: null,
-            playerState: null
+            playerState: 1,
+            data: null,
+            TrackPlayerStates: {}
         }
     }
     
@@ -21,8 +23,19 @@ export default class Player extends Component {
         
         TrackPlayer.setupPlayer().then(async ()=>{
             
-            const playerState = await TrackPlayer.getState()===TrackPlayer.STATE_PLAYING;
-            this.setState({playerState})
+            const TrackPlayerStates = {};
+            for (let [key, value] of Object.entries(TrackPlayer)) {
+                console.log(key, value)
+                if (key.match(/STATE/)) {
+                    Object.assign(TrackPlayerStates, {[key]: value})
+
+                }
+            }
+            console.log(TrackPlayerStates)
+
+            this.setState({TrackPlayerStates})
+            
+            
             TrackPlayer.updateOptions({
                 stopWithApp: false,
                 capabilities: [ 
@@ -37,17 +50,16 @@ export default class Player extends Component {
                 TrackPlayer.CAPABILITY_PAUSE
                 ]
                 })
-            }
-        )
+            
+            })
+        
         
 
           this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
             // console.warn(data)
             const { title, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack)
-            this.setState({playerState: true})
-            console.warn(await TrackPlayer.getState(), TrackPlayer.STATE_PAUSED, TrackPlayer.STATE_STOPPED,TrackPlayer.STATE_NONE,TrackPlayer.STATE_BUFFERING)
             this.setState({title, artist, artwork})
-            console.log(artwork)
+            
             // const { track, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack);
             // this.setState({title, artist, artwork });
             
@@ -60,6 +72,7 @@ export default class Player extends Component {
         //   });
         this._onStateChanged = TrackPlayer.addEventListener('playback-state', (data) => {
             this.setState({playerState: data.state})
+            
         })
 
     
@@ -90,15 +103,28 @@ export default class Player extends Component {
     } catch (_) {}
     }
 
-    getState = async () => {
-        return await TrackPlayer.STATE_PLAYING
-    }
+    // getState = async () => {
+    //     const track = await TrackPlayer.getState().then((data)=>console.log(data))
 
+        
+    // }
+
+
+    // handlePlayer = (action) => {
+    //     const { TrackPlayerStates: { STATE_BUFFERING, STATE_PAUSED, STATE_PLAYING }, playerState } = this.state
+    //     if (action === 'pause') {
+    //         this.setState({playerState: STATE_PAUSED})
+    //     } else if (action==='play')
+    // }
 
 
     render() {
-        console.log(this.state.playerState, this.getState())
-        if (this.state.playerState) {
+        const { TrackPlayerStates: { STATE_BUFFERING, STATE_PAUSED, STATE_PLAYING },
+                playerState, artwork, title, artist, TrackPlayerStates} = this.state;
+
+        if (playerState === STATE_PLAYING || 
+            playerState === STATE_BUFFERING ||
+            playerState === STATE_PAUSED) {
         return (
         
         <View style={styles.playerStyle}>
@@ -107,11 +133,11 @@ export default class Player extends Component {
             
                 <ListItem 
                         
-                        leftAvatar={{source: this.state.artwork ? {uri: this.state.artwork} : require('../assets/images/icon.png')}}
-                        title={this.state.title ? this.state.title.replace('&#39;',"'") : ''}
-                        subtitle={this.state.artist || ''}
+                        leftAvatar={{source: artwork ? {uri: artwork} : require('../assets/images/icon.png')}}
+                        title={title ? title.replace('&#39;',"'") : ''}
+                        subtitle={artist || ''}
                         titleStyle={{color: 'white', fontWeight: 'bold'}}
-                        rightSubtitle={<IconSwitch />}
+                        rightSubtitle={<IconSwitch state={playerState} TrackPlayerStates={TrackPlayerStates} />}
                         containerStyle={{ backgroundColor: `black`}}
                         subtitleStyle={{color: 'grey'}}
                         rightSubtitleStyle={{color: 'white', paddingTop: 10}}
@@ -123,22 +149,15 @@ export default class Player extends Component {
     }
 }
 
-const IconSwitch = (props) => (
+const IconSwitch = ({state, TrackPlayerStates}) => (
     
     <View>
     <TouchableOpacity>{
-    TrackPlayer.STATE_PLAYING 
-    ? 
-    <Icon name={'pause'} size={25} style={styles.iconStyle}/> 
-    :
-    TrackPlayer.STATE_PAUSED 
-    ? <Icon name={'play'} size={25} style={styles.iconStyle}/> :
-    TrackPlayer.STATE_STOPPED 
-    ? <Icon name={'stop'} size={25} style={styles.iconStyle}/> :
-    TrackPlayer.STATE_BUFFERING
-    ? <Icon name={'play-speed'} size={25} style={styles.iconStyle}/> 
-    :
-     null
+        state === TrackPlayerStates.STATE_PLAYING || state === TrackPlayerStates.STATE_BUFFERING
+        ? 
+        <Icon name={'pause'} size={25} style={styles.iconStyle} onPress={()=>TrackPlayer.pause()}/>
+        :
+        <Icon name={'play'} size={25} style={styles.iconStyle} onPress={()=>TrackPlayer.play()}/>
     }
     </TouchableOpacity>
     </View>
