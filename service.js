@@ -27,9 +27,6 @@ module.exports = function() {
       });
 
 
-      TrackPlayer.addEventListener('playback-state', async () => {
-        console.log('test');
-        
-      });
+
 
 }

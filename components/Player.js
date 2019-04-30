@@ -15,7 +15,21 @@ export default class Player extends Component {
     }
     
     componentDidMount() {
-
+        TrackPlayer.setupPlayer();
+        TrackPlayer.updateOptions({
+            stopWithApp: true,
+            capabilities: [
+              TrackPlayer.CAPABILITY_PLAY,
+              TrackPlayer.CAPABILITY_PAUSE,
+              TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+              TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+              TrackPlayer.CAPABILITY_STOP
+            ],
+            compactCapabilities: [
+              TrackPlayer.CAPABILITY_PLAY,
+              TrackPlayer.CAPABILITY_PAUSE
+            ]
+          });
        
        
 
@@ -39,26 +53,7 @@ export default class Player extends Component {
 
 
 
-    togglePlayback = async () => {
-        const currentTrack = await TrackPlayer.getCurrentTrack();
-        if (currentTrack == null) {
-          await TrackPlayer.reset();
-          await TrackPlayer.add({
-            id: 'local-track',
-            url: localTrack,
-            title: 'Pure (Demo)',
-            artist: 'David Chavez',
-            artwork: 'https://picsum.photos/200',
-          });
-          await TrackPlayer.play();
-        } else {
-          if (PlayerStore.playbackState === TrackPlayer.STATE_PAUSED) {
-            await TrackPlayer.play();
-          } else {
-            await TrackPlayer.pause();
-          }
-        }
-      }
+    
     
     skipToNext = async () => {
     try {
