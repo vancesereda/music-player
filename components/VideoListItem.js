@@ -50,13 +50,13 @@ class VideoListItem extends Component {
  
 
     render() {
-        const { snippet } = this.props.video;
+        const { snippet, snippet: {thumbnails: {medium: {url}}} } = this.props.video;
         const { isVisible, dropdown } = this.state;
         return (
         <View>
             <TouchableOpacity onPress={()=>this.setState({dropdown: !this.state.dropdown})}>
                 <ListItem 
-                    leftAvatar={{ source: {uri: snippet.thumbnails.medium.url}}}
+                    leftAvatar={{ source: {uri: url}}}
                     title={snippet.title.replace('&#39;', "'")}
                     titleStyle={{color: 'black'}}
                     subtitle={snippet.channelTitle}

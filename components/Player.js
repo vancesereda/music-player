@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import TrackPlayer from 'react-native-track-player'
+import TrackPlayer , { ProgressComponent } from 'react-native-track-player'
 import {ListItem} from 'react-native-elements';
 
+
+class ProgressBar extends ProgressComponent {
+    render() {
+      return (
+        <View style={styles.progress}>
+          <View style={{ flex: this.getProgress(), backgroundColor: 'white' }} />
+          <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'black' }} />
+        </View>
+      );
+    }
+  }
 
 export default class Player extends Component {
     
@@ -58,7 +69,9 @@ export default class Player extends Component {
 
         this._onStateChanged = TrackPlayer.addEventListener('playback-state', (data) => {
             this.setState({playerState: data.state})
-            
+            if (data.state === TrackPlayer.STATE_STOPPED) {
+                
+            }
         })
 
     
@@ -92,8 +105,9 @@ export default class Player extends Component {
 
 
     render() {
-        const { TrackPlayerStates: { STATE_BUFFERING, STATE_PAUSED, STATE_PLAYING },
+        const { TrackPlayerStates: { STATE_BUFFERING, STATE_PAUSED, STATE_PLAYING, STATE_NONE, STATE_READY },
                 playerState, artwork, title, artist, TrackPlayerStates} = this.state;
+        console.log(TrackPlayerStates.STATE_STOPPED, playerState, STATE_PAUSED, STATE_NONE, STATE_READY)
 
         if (playerState === STATE_PLAYING || 
             playerState === STATE_BUFFERING ||
@@ -101,6 +115,7 @@ export default class Player extends Component {
         return (
         
         <View style={styles.playerStyle}>
+            <ProgressBar />
             <ListItem 
                 leftAvatar={{source: artwork ? {uri: artwork} : require('../assets/images/icon.png')}}
                 title={title ? title.replace('&#39;',"'") : ''}
@@ -147,5 +162,11 @@ const styles = StyleSheet.create({
     },
     iconStyle: {
         color: 'white'
-    }
+    },
+    progress: {
+        height: 1,
+        width: '100%',
+        marginTop: 10,
+        flexDirection: 'row',
+      },
 })
