@@ -14,6 +14,7 @@ import SearchScreen from './screens/SearchScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { createStackNavigator, createSwitchNavigator, createAppContainer  } from 'react-navigation';
 import TrackPlayer from 'react-native-track-player'
+import Player from './components/Player'
 // TrackPlayer.setupPlayer().then(() => {
 //   // The player is ready to be used
 // });
@@ -51,7 +52,7 @@ class App extends Component {
     <View style={styles.container}>
       {Platform.OS === 'ios' && <StatusBar backgroundColor="black"/>}
       <AppContainer />
-
+      <Player />
       
     </View>
   )}

@@ -56,6 +56,7 @@ export default class SearchScreen extends React.Component {
     .then(res=>{
       
       const { url } = res.data.filter(obj=>obj.itag==='140')[0];
+      title = title.replace('&#39;', "'")
       const track = {
         id,
         title,
@@ -85,7 +86,7 @@ export default class SearchScreen extends React.Component {
                     getVideoInfo={this.getVideoInfo} 
                     videoInfo={this.state.videoInfo}
         /> 
-        <Player />
+        
       </View>
     );
   }

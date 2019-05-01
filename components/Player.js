@@ -25,17 +25,12 @@ export default class Player extends Component {
             
             const TrackPlayerStates = {};
             for (let [key, value] of Object.entries(TrackPlayer)) {
-                console.log(key, value)
                 if (key.match(/STATE/)) {
                     Object.assign(TrackPlayerStates, {[key]: value})
 
                 }
             }
-            console.log(TrackPlayerStates)
-
             this.setState({TrackPlayerStates})
-            
-            
             TrackPlayer.updateOptions({
                 stopWithApp: false,
                 capabilities: [ 
@@ -55,21 +50,12 @@ export default class Player extends Component {
         
         
 
-          this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
-            // console.warn(data)
+        this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
             const { title, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack)
             this.setState({title, artist, artwork})
             
-            // const { track, artist, artwork } = await TrackPlayer.getTrack(data.nextTrack);
-            // this.setState({title, artist, artwork });
-            
         });
 
-        
-        // this.pause = TrackPlayer.addEventListener('remote-pause', () => {
-        //     TrackPlayer.pause()
-        //     console.log('remote-pause event')
-        //   });
         this._onStateChanged = TrackPlayer.addEventListener('playback-state', (data) => {
             this.setState({playerState: data.state})
             
@@ -103,19 +89,6 @@ export default class Player extends Component {
     } catch (_) {}
     }
 
-    // getState = async () => {
-    //     const track = await TrackPlayer.getState().then((data)=>console.log(data))
-
-        
-    // }
-
-
-    // handlePlayer = (action) => {
-    //     const { TrackPlayerStates: { STATE_BUFFERING, STATE_PAUSED, STATE_PLAYING }, playerState } = this.state
-    //     if (action === 'pause') {
-    //         this.setState({playerState: STATE_PAUSED})
-    //     } else if (action==='play')
-    // }
 
 
     render() {
@@ -128,22 +101,16 @@ export default class Player extends Component {
         return (
         
         <View style={styles.playerStyle}>
-
-
-            
-                <ListItem 
-                        
-                        leftAvatar={{source: artwork ? {uri: artwork} : require('../assets/images/icon.png')}}
-                        title={title ? title.replace('&#39;',"'") : ''}
-                        subtitle={artist || ''}
-                        titleStyle={{color: 'white', fontWeight: 'bold'}}
-                        rightSubtitle={<IconSwitch state={playerState} TrackPlayerStates={TrackPlayerStates} />}
-                        containerStyle={{ backgroundColor: `black`}}
-                        subtitleStyle={{color: 'grey'}}
-                        rightSubtitleStyle={{color: 'white', paddingTop: 10}}
-                    />
-            
-
+            <ListItem 
+                leftAvatar={{source: artwork ? {uri: artwork} : require('../assets/images/icon.png')}}
+                title={title ? title.replace('&#39;',"'") : ''}
+                subtitle={artist || ''}
+                titleStyle={{color: 'white', fontWeight: 'bold'}}
+                rightSubtitle={<IconSwitch state={playerState} TrackPlayerStates={TrackPlayerStates} />}
+                containerStyle={{ backgroundColor: `black`}}
+                subtitleStyle={{color: 'grey'}}
+                rightSubtitleStyle={{color: 'white', paddingTop: 10}}
+            />
         </View>
         )} else return( <View></View>);
     }
