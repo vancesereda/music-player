@@ -37,13 +37,13 @@ export default class SearchScreen extends React.Component {
   }
 
   searchYT = async (term) => {
-    
+    console.log('loading')
     this.setState({loading: true})
-
     const response = await Youtube.get("/search", {
       params: {
         q: term
     }}).then(res=> {
+      console.log(res.data.items)
       this.setState({videos: res.data.items})
     }).catch(e=>console.log(e))
 
@@ -56,7 +56,7 @@ export default class SearchScreen extends React.Component {
     .then(res=>{
       
       const { url } = res.data.filter(obj=>obj.itag==='140')[0];
-      title = title.replace('&#39;', "'")
+      title = title.replace('&#39;', "'").replace('&quot;', '"')
       const track = {
         id,
         title,

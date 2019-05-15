@@ -21,29 +21,35 @@ import {withNavigation } from 'react-navigation'
 import HeaderIcons from '../components/HeaderIcons'
 import Player from '../components/Player'
 
-const artists = ["Machine Girl"]
-const tracks = ["MG1",
- "Ionic Funk (20XXX Battle Music)",
- "Krystle (URL Cyber Palace Mix)",
- "Ginger Claps",
- "Ghost",
- "覆面調査員 (GabberTrap Mix)",
- "Out By 16, Dead on the Scene",
- "Post Rave Maximalist",
- "Phase α",
- "Free Will"
+const artists = ["John Coltrane"]
+const tracks = [
+  "Giant Steps",
+  "Cousin Mary",
+  "Countdown"	,
+  "Spiral",
+  "Syeeda's Song Flute"	,
+  "Naima",
+  "Mr. P.C.",
+  "Part 1: Acknowledgement	",
+  "Part 2: Resolution",
+  "Part 3: Pursuance",
+  "Part 4: Psalm"
+
+
 ]
 
-const albums= ["WLFGRL"]
 
 
-const trackItemsMachineGirl = tracks.map((track) => {
- return { "track": track , artist: "Machine Girl", runTime:"2:30", album: "WLFGRL" }
+const albums= ["Giant Steps"]
+
+
+const trackItemsJohnColtrane = tracks.map((track) => {
+ return { "track": track , artist: "John Coltrane", runTime:"2:30", album: "Giant Steps" }
 })
 
 
 const music = {
-  trackItemsMachineGirl
+  trackItemsJohnColtrane
 }
 
 
@@ -71,7 +77,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
         <AppHeader headerText={'Library'} />
-        <TrackList music={music.trackItemsMachineGirl} />
+        <TrackList music={music.trackItemsJohnColtrane} />
         
       </View>
     );
