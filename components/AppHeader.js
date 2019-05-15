@@ -8,23 +8,6 @@ import HeaderIcons from './HeaderIcons'
 
 const AppHeader = (props) => (
 
-    // <Header
-    //     // leftComponent = {props.leftComponent || null}
-    //     leftComponent={{ 
-    //                         text: props.headerText, 
-    //                         style: { 
-    //                             flex: 1, color: 'white', fontSize: 22, paddingLeft: 5,
-    //                             fontWeight: "bold",
-    //                             marginTop: -10
-                                
-    //                         }
-    //                     }}
-
-
-    //     placement={'left'}
-    //     containerStyle={styles.container}
-    //     rightComponent={props.rightComponent || null }
-    // />
 
     <View style={styles.containerStyleDarkTheme}>
                 <TouchableOpacity onPress={()=>null}>
