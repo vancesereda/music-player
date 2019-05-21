@@ -37,7 +37,7 @@ class SearchBar extends Component {
                     returnKeyType="search"
                     onSubmitEditing={()=>this.props.onSearch(this.state.term)}
                     onFocus={()=>this.props.onPress(true)}
-                    autoFocus={true}
+                    autoFocus={true} 
                 />
                
 
