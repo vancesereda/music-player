@@ -15,7 +15,7 @@ const AppHeader = (props) => (
                 </TouchableOpacity>
                 <Text style={styles.searchTextStyle}>{props.headerText}</Text>
                 {/* <Icon name={'md-search'} size={20} style={styles.iconStyle} /> */}
-                <HeaderIcons size={20} color={'white'}/>
+                {props.rightComponent}
                 
                
 
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         borderColor: '#333333',
         marginTop: -3,
         paddingTop: 15, 
-        paddingBottom: 15
+        paddingBottom: 5
         
     },
     containerStyleDarkTheme: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(60,60,60,1)',
         marginTop: -3,
         paddingTop: 15, 
-        paddingBottom: 12
+        paddingBottom: 10
     },
     searchTextStyle: {
         flex: 1,
