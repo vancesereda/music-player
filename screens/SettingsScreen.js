@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text , Button} from 'react-native'
+import AppHeader from '../components/AppHeader'
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -12,6 +13,12 @@ export default class SettingsScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
-    return <View><Button onPress={()=>this.props.navigation.navigate('HomeScreen')} title={'Go Back'}></Button><Text>Settings</Text></View>;
+    return <View>
+      <AppHeader headerText={'Settings'} icon={"md-arrow-back"}
+      onPress={()=>this.props.navigation.navigate('HomeScreen')}
+     
+     />
+     
+     </View>;
   }
 }

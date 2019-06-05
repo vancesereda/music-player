@@ -11,7 +11,7 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            term: 'Majority Report',
+            term: '',
             searching: false
         }
     }
@@ -32,8 +32,8 @@ class SearchBar extends Component {
                     style={searchTextStyle}
                     onChangeText={term=>this.setState({ term })}
                     value={this.state.term}
-                    placeholder={'Search'}
-                    placeholderTextColor={'white'}
+                    placeholder={'Search Youtube'}
+                    placeholderTextColor={'rgba(255,255,255,0.8)'}
                     returnKeyType="search"
                     onSubmitEditing={()=>this.props.onSearch(this.state.term)}
                     onFocus={()=>this.props.onPress(true)}

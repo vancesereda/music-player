@@ -10,12 +10,12 @@ const AppHeader = (props) => (
 
 
     <View style={styles.containerStyleDarkTheme}>
-                <TouchableOpacity onPress={()=>null}>
-                    <Icon name={'ios-menu'} style={styles.iconStyle} size={22} />
+                <TouchableOpacity onPress={props.onPress}>
+                    <Icon name={props.icon} style={styles.iconStyle} size={20} />
                 </TouchableOpacity>
                 <Text style={styles.searchTextStyle}>{props.headerText}</Text>
                 {/* <Icon name={'md-search'} size={20} style={styles.iconStyle} /> */}
-                <HeaderIcons size={22} color={'white'}/>
+                <HeaderIcons size={20} color={'white'}/>
                 
                
 
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(60,60,60,1)',
         marginTop: -3,
         paddingTop: 15, 
-        paddingBottom: 15
+        paddingBottom: 12
     },
     searchTextStyle: {
         flex: 1,
-        fontSize: 20,
+        fontSize: 18,
         paddingLeft: 20,
         marginBottom: 2,
         fontWeight: 'normal',

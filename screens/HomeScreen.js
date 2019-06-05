@@ -76,7 +76,7 @@ class HomeScreen extends React.Component {
     const { selection } = this.state;
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
-        <AppHeader headerText={'Library'} />
+        <AppHeader headerText={'Library'} icon={'ios-menu'} />
         <TrackList music={music.trackItemsJohnColtrane} />
         
       </View>

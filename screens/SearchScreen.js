@@ -22,7 +22,6 @@ export default class SearchScreen extends React.Component {
     this.state = {
       loading: false,
       videos: [],
-      oldSearches: ["majority report", "john coltrane", "wayne shorter"],
       videoInfo: []
     }
   }
@@ -38,9 +37,9 @@ export default class SearchScreen extends React.Component {
   }
 
 
-  componentDidMount() {
-    this._retrieveData('videos')
-  }
+  // componentDidMount() {
+  //   this._retrieveData('videos')
+  // }
 
   searchYT = async (term) => {
     console.log('loading')
@@ -84,6 +83,7 @@ export default class SearchScreen extends React.Component {
   }
 
   getVideoInfo = async (id, title, channelTitle, imgUrl) => {
+    
     const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
       params: { id }
     })
@@ -98,6 +98,8 @@ export default class SearchScreen extends React.Component {
         artist: channelTitle,
         artwork: imgUrl
       }
+
+      AsyncStorage.setItem('current-play', JSON.stringify(track))
       TrackPlayer.add(track).then(()=>TrackPlayer.play())
       // res.data.filter(obj=>obj.itag==='140)[0].url 
 
@@ -115,7 +117,7 @@ export default class SearchScreen extends React.Component {
                     loading={this.state.loading}
                     oldSearches={this.state.previousSearches}
         />
-        { this.state.videos.length ? 
+        {/* { this.state.videos.length ? 
         <View>
           <Button title={'Save Storage'} onPress={()=>this._storeData('videos', this.state.videos)} />
         </View> 
@@ -123,7 +125,7 @@ export default class SearchScreen extends React.Component {
         <View>
           <Button title={'Retrieve Storage'} onPress={()=>this._retrieveData('videos')} />
         </View> }
-            
+             */}
         <VideoList videos={this.state.videos} 
                     getVideoInfo={this.getVideoInfo} 
                     videoInfo={this.state.videoInfo}
