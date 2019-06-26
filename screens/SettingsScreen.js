@@ -41,7 +41,7 @@ export default class SettingsScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
-    return <View>
+    return <View style={{flex: 1}}>
       <AppHeader headerText={'Settings'} icon={"md-arrow-back"}
       onPress={()=>this.props.navigation.navigate('HomeScreen')}
      
