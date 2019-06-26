@@ -39,9 +39,9 @@ export default class SearchScreen extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   this._retrieveData('videos')
-  // }
+  componentDidMount() {
+    this._retrieveData('videos')
+  }
 
   searchYT = async (term) => {
     console.log('loading')
@@ -51,6 +51,7 @@ export default class SearchScreen extends React.Component {
         q: term
     }}).then(res=> {
       this.setState({videos: res.data.items})
+      this._storeData("videos", res.data.items)
     }).catch(e=>console.log(e))
 
   }
@@ -58,8 +59,10 @@ export default class SearchScreen extends React.Component {
   _retrieveData = async (key) => {
     try {
       const value = await AsyncStorage.getItem(key).then(async obj=> {
-
-         this.setState({videos: JSON.parse(obj)})
+          console.log(obj)
+          if (obj) {
+            this.setState({videos: JSON.parse(obj)})
+          }
 
 
       })
@@ -83,32 +86,6 @@ export default class SearchScreen extends React.Component {
 
   }
 
-  
-
-  // getVideoInfo = async (id, title, channelTitle, imgUrl) => {
-    
-  //   const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
-  //     params: { id }
-  //   })
-  //   .then(res=>{
-      
-  //     const { url } = res.data.filter(obj=>obj.itag==='140')[0];
-  //     title = title.replace('&#39;', "'").replace('&quot;', '"')
-  //     const track = {
-  //       id,
-  //       title,
-  //       url,
-  //       artist: channelTitle,
-  //       artwork: imgUrl
-  //     }
-
-  //     AsyncStorage.setItem('current-play', JSON.stringify(track)).then(()=>this.setState({track}))
-  //     TrackPlayer.add(track).then(()=>TrackPlayer.play())
-  //     // res.data.filter(obj=>obj.itag==='140)[0].url 
-
-  //   }).catch(e=>console.log(e))
-  // }
-
 
 
 
@@ -122,15 +99,6 @@ export default class SearchScreen extends React.Component {
                     loading={this.state.loading}
                     oldSearches={this.state.previousSearches}
         />
-        {/* { this.state.videos.length ? 
-        <View>
-          <Button title={'Save Storage'} onPress={()=>this._storeData('videos', this.state.videos)} />
-        </View> 
-        : 
-        <View>
-          <Button title={'Retrieve Storage'} onPress={()=>this._retrieveData('videos')} />
-        </View> }
-             */}
         <VideoList videos={this.state.videos} 
                     getVideoInfo={this.getVideoInfo} 
                     videoInfo={this.state.videoInfo}

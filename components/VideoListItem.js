@@ -21,6 +21,7 @@ class VideoListItem extends Component {
         this.state={
             dropdown: false,
             isVisible: false,
+            music: []
 
         }
     }
@@ -73,7 +74,7 @@ class VideoListItem extends Component {
 
             var stateObject = this.state[key];
             for (let i = 0; i < stateObject.length; i++) {
-                if (stateObject[key][i].title === dataObject.title) {
+                if (stateObject[i].title === dataObject.title) {
                     return;
                 }
             }

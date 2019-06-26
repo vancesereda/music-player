@@ -11,12 +11,14 @@ import {
   Dimensions
 } from 'react-native';
 
-export default CenterViewText = ({text}) => (
+export default CenterViewText = ({text, onPress}) => (
 
     <View style={styles.centerView}>
+      <TouchableOpacity onPress={onPress}>
             <Text style={styles.centerText}>
             {text}
             </Text>
+      </TouchableOpacity>
     </View>
 
 )

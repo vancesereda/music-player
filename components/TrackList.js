@@ -3,6 +3,8 @@ import { ScrollView, View} from 'react-native';
 import { ListItem } from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale'
 import Colors from '../constants/Colors';
+import TrackPlayer from 'react-native-track-player';
+
 
 
 
@@ -13,10 +15,11 @@ const TrackList = ({music}) => (
             <View key={key}>
                 <ListItem 
                     Component={TouchableScale}
+                    onPress={()=>TrackPlayer.add(music).then(()=>TrackPlayer.play())}
                     friction={90} //
                     tension={100} // These props are passed to the parent component (here TouchableScale)
                     activeScale={0.95} //
-                    leftAvatar={{source: require('../assets/images/icon.png')}}
+                    leftAvatar={{source: {uri: /*require('../assets/images/icon.png')*/ music.artwork}}}
                     title={music.title}
                     subtitle={music.artist}
                     titleStyle={{color: 'white', fontWeight: 'bold'}}

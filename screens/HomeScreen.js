@@ -107,7 +107,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: "rgba(35,35,35,1)", marginTop: 0}}>
         <AppHeader headerText={'Library'} icon={'ios-menu'} rightComponent={<HeaderIcons size={20} color={'white'}/>}/>
-        {this.state.music.length ? 
+        {this.state.music ? 
           <TrackList music={this.state.music} /*MOCK: music={music.trackItemsJohnColtrane} */ />
           :
           <CenterTextView text={'Nothing here yet. You can manually move music here, download it, or stream it to add it to the main queue.'} />

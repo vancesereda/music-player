@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text , Button, PermissionsAndroid, StyleSheet} from 'react-native'
+import { View, Text , Button, PermissionsAndroid, StyleSheet, AsyncStorage} from 'react-native'
 import RNFileSelector from 'react-native-file-selector'
 import AppHeader from '../components/AppHeader'
 import CenterTextView from '../components/CenterTextView'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -46,8 +48,10 @@ export default class SettingsScreen extends React.Component {
       onPress={()=>this.props.navigation.navigate('HomeScreen')}
      
      />
-     <CenterTextView text={'No options quite yet.'}/>
+      <CenterTextView text={'Clear async storage'} onPress={()=>AsyncStorage.clear()}/>
+
      {/* <Button onPress={this._openFileChooser} title="Test File Select (broken)" /> */}
+
      </View>;
   }
 }
