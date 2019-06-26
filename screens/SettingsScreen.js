@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text , Button, PermissionsAndroid} from 'react-native'
+import { View, Text , Button, PermissionsAndroid, StyleSheet} from 'react-native'
 import RNFileSelector from 'react-native-file-selector'
 import AppHeader from '../components/AppHeader'
+import CenterTextView from '../components/CenterTextView'
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ export default class SettingsScreen extends React.Component {
       onPress={()=>this.props.navigation.navigate('HomeScreen')}
      
      />
+     <CenterTextView text={'No options quite yet.'}/>
      {/* <Button onPress={this._openFileChooser} title="Test File Select (broken)" /> */}
      </View>;
   }

@@ -20,6 +20,7 @@ import ModalComponent from '../components/ModalComponent'
 import {withNavigation } from 'react-navigation'
 import HeaderIcons from '../components/HeaderIcons'
 import Player from '../components/Player'
+import CenterTextView from '../components/CenterTextView';
 
 //Mock Data
 
@@ -61,7 +62,7 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       selection: 'Tracks',
-      file: false
+      music: []
     }
     
   }
@@ -88,7 +89,7 @@ class HomeScreen extends React.Component {
       
     } 
     catch (error) {
-      console.warn('Error retrieving async data.')
+      console.log('Error retrieving async data.')
     }
 
   }
@@ -97,9 +98,14 @@ class HomeScreen extends React.Component {
     const { width, height } = Dimensions.get('window')
     const { selection } = this.state;
     return (
-      <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
+      <View style={{flex: 1, backgroundColor: "rgba(35,35,35,1)", marginTop: 0}}>
         <AppHeader headerText={'Library'} icon={'ios-menu'} rightComponent={<HeaderIcons size={20} color={'white'}/>}/>
-        <TrackList music={/*music.trackItemsJohnColtrane*/} />
+        {this.state.music.length ? 
+          <TrackList music={this.state.music} /*MOCK: music={music.trackItemsJohnColtrane} */ />
+          :
+          <CenterTextView text={'Nothing here yet. You can manually move music here, download it, or stream it to add it to the main queue.'} />
+          
+      }
         
       </View>
     );
@@ -113,6 +119,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  centerView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlignVertical: 'center',
+    marginLeft: 25,
+    marginRight: 25,
+    marginBottom: 80,
+    flex: 1
+  },
+  centerText: {
+    fontSize: 24,
+    color: 'rgba(230,255,255,0.9)'
   },
   developmentModeText: {
     marginBottom: 20,
