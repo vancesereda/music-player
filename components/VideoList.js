@@ -4,7 +4,7 @@ import VideoListItem from './VideoListItem'
 
 
 
-const VideoList = ({videos, getVideoInfo}) => (
+const VideoList = ({videos, getVideoInfo, testDownload}) => (
     <ScrollView>
         <View style={styles.containerStyle}>
             {videos.map((v)=>
@@ -13,6 +13,7 @@ const VideoList = ({videos, getVideoInfo}) => (
                     key={v.etag}
                     video={v}
                     getVideoInfo={getVideoInfo}
+                    testDownload={testDownload}
                 />
             )}
         </View>

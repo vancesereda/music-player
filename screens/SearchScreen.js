@@ -7,9 +7,11 @@ import Youtube from '../apis/Youtube';
 import axios from 'axios';
 import Player from '../components/Player'
 import TrackPlayer from 'react-native-track-player'
+import RNBackgroundDownloader from 'react-native-background-downloader';
 
 
 
+//old mock data
 
 // const previousSearches = ["majority report", "john coltrane", "wayne shorter"]
 // [{"kind":"youtube#searchResult","etag":"\"XpPGQXPnxQJhLgs6enD_n8JR4Qk/lhT34dZPUt009rzPl2W3lttA01Y\"","id":{"kind":"youtube#channel","channelId":"UC-3jIAlnQmbbVMV6gR7K8aQ"},"snippet":{"publishedAt":"2010-05-25T02:04:46.000Z","channelId":"UC-3jIAlnQmbbVMV6gR7K8aQ","title":"The Majority Report w/ Sam Seder","description":"The Majority Report is a daily, political talk show at majority.fm live at 12PM ET. Call the show after 12:30PM ET 646-257-3920. Available on Itunes or the site as ...","thumbnails":{"default":{"url":"https://yt3.ggpht.com/-Xafcs7_oX7U/AAAAAAAAAAI/AAAAAAAAAAA/QmgbPsCCLeU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"},"medium":{"url":"https://yt3.ggpht.com/-Xafcs7_oX7U/AAAAAAAAAAI/AAAAAAAAAAA/QmgbPsCCLeU/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"},"high":{"url":"https://yt3.ggpht.com/-Xafcs7_oX7U/AAAAAAAAAAI/AAAAAAAAAAA/QmgbPsCCLeU/s800-c-k-no-mo-rj-c0xffffff/photo.jpg"}},"channelTitle":"The Majority Report w/ Sam Seder","liveBroadcastContent":"upcoming"}},{"kind":"youtube#searchResult","etag":"\"XpPGQXPnxQJhLgs6enD_n8JR4Qk/JlKzkgMQUcvJi_0T2BWLp2EvQ00\"","id":{"kind":"youtube#video","videoId":"SK4BOXlShO4"},"snippet":{"publishedAt":"2019-04-19T00:00:00.000Z","channelId":"UC-3jIAlnQmbbVMV6gR7K8aQ","title":"Williams Barr&#39;s Press Conference Made NO Sense At All","description":"Attorney General William Barr decided to hold a press conference on the Mueller report before it was even released, which made zero sense. Sam Seder and ...","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/SK4BOXlShO4/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/SK4BOXlShO4/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/SK4BOXlShO4/hqdefault.jpg","width":480,"height":360}},"channelTitle":"The Majority Report w/ Sam Seder","liveBroadcastContent":"none"}},{"kind":"youtube#searchResult","etag":"\"XpPGQXPnxQJhLgs6enD_n8JR4Qk/Nn-yzDNihe6dOFBHM7rgcZSLfCY\"","id":{"kind":"youtube#video","videoId":"-0637SDnkYI"},"snippet":{"publishedAt":"2019-04-17T04:30:00.000Z","channelId":"UC-3jIAlnQmbbVMV6gR7K8aQ","title":"Fox Hosts Melt Down As Bernie Continually Owns Them During Town Hall","description":"Brett Baier and Martha MacCallum had a very hard time controlling Bernie Sanders' awesomeness at a recent Fox News townhall. Sam Seder and the Majority ...","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/-0637SDnkYI/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/-0637SDnkYI/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/-0637SDnkYI/hqdefault.jpg","width":480,"height":360}},"channelTitle":"The Majority Report w/ Sam Seder","liveBroadcastContent":"none"}}],
@@ -82,29 +84,33 @@ export default class SearchScreen extends React.Component {
 
   }
 
-  getVideoInfo = async (id, title, channelTitle, imgUrl) => {
+  
+
+  // getVideoInfo = async (id, title, channelTitle, imgUrl) => {
     
-    const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
-      params: { id }
-    })
-    .then(res=>{
+  //   const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
+  //     params: { id }
+  //   })
+  //   .then(res=>{
       
-      const { url } = res.data.filter(obj=>obj.itag==='140')[0];
-      title = title.replace('&#39;', "'").replace('&quot;', '"')
-      const track = {
-        id,
-        title,
-        url,
-        artist: channelTitle,
-        artwork: imgUrl
-      }
+  //     const { url } = res.data.filter(obj=>obj.itag==='140')[0];
+  //     title = title.replace('&#39;', "'").replace('&quot;', '"')
+  //     const track = {
+  //       id,
+  //       title,
+  //       url,
+  //       artist: channelTitle,
+  //       artwork: imgUrl
+  //     }
 
-      AsyncStorage.setItem('current-play', JSON.stringify(track))
-      TrackPlayer.add(track).then(()=>TrackPlayer.play())
-      // res.data.filter(obj=>obj.itag==='140)[0].url 
+  //     AsyncStorage.setItem('current-play', JSON.stringify(track)).then(()=>this.setState({track}))
+  //     TrackPlayer.add(track).then(()=>TrackPlayer.play())
+  //     // res.data.filter(obj=>obj.itag==='140)[0].url 
 
-    }).catch(e=>console.log(e))
-  }
+  //   }).catch(e=>console.log(e))
+  // }
+
+
 
 
 
@@ -129,6 +135,7 @@ export default class SearchScreen extends React.Component {
         <VideoList videos={this.state.videos} 
                     getVideoInfo={this.getVideoInfo} 
                     videoInfo={this.state.videoInfo}
+                    testDownload={this.testDownload}
         /> 
         
       </View>

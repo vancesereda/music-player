@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Share, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableOpacity, Text, Share, TouchableWithoutFeedback, AsyncStorage, PermissionsAndroid } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ModalComponent from './ModalComponent'
 import Axios from 'axios';
 const icons = ["playlist-plus", "play", "share", "download"];
 const text = ["Save", "Stream", "Share", "Download"];
+import TrackPlayer from 'react-native-track-player';
+import axios from 'axios';
+import RNBackgroundDownloader from 'react-native-background-downloader';
 
 class VideoListItem extends Component {
     
@@ -14,7 +17,8 @@ class VideoListItem extends Component {
         super(props);
         this.state={
             dropdown: false,
-            isVisible: false
+            isVisible: false,
+
         }
     }
 
@@ -23,15 +27,98 @@ class VideoListItem extends Component {
         this.setState({isVisible: !this.state.isVisible})
     }
 
+    componentDidMount() {
+        TrackPlayer.setupPlayer();
+    }
 
-    _handleTouch = (idx) => {
+    testDownload = async () => {
+        // const getTrack = await AsyncStorage.getItem('current-play').then((data)=> {
+        //     // this.setState({track: JSON.parse(track)});
+        //     const track = JSON.parse(data);
+        //     this.setState({track})
+
+        // })
+        // const { track: {url, title}} = this.state;
+        // console.log(url)
+        // const filename = `${title.replace(/\s/g, '-')}.mp4`;
+        // console.log(filename)
+
+
+        try {
+
+            const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+                title: 'Title',
+                message: 'Write your files',
+            }
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                // await TrackPlayer.getCurrentTrack().then((data)=>console.log(data));
+                // const { track: {url, title}} = this.state;
+                // console.log(url)
+                const trackId = await TrackPlayer.getCurrentTrack();
+                const { title, url } = await TrackPlayer.getTrack(trackId);
+                const filename = `${title.replace(/\s/g, '-')}.mp4`;
+                // console.log(filename)
+                    
+                let task = RNBackgroundDownloader.download({
+                    id: title,
+                    url: url,
+                    destination: `${RNBackgroundDownloader.directories.documents}/${filename}`
+                }).begin((expectedBytes) => {
+                    console.log(`Going to download ${expectedBytes} bytes!`);
+                }).progress((percent) => {
+                    console.log(`Downloaded: ${percent * 100}%`);
+                }).done(() => {
+                    console.log('Download is done!');
+                }).error((error) => {
+                    console.log('Download canceled due to error: ', error);
+                });
+                
+            }
+        } catch (e) {
+          console.error(e)
+        }
+      }
+
+    getVideoInfo = async (id, title, channelTitle, imgUrl, idx) => {
+    
+        const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
+          params: { id }
+        })
+        .then(res=>{
+          
+          const { url } = res.data.filter(obj=>obj.itag==='140')[0];
+          title = title.replace(/\&#39;/g, "'").replace(/\&quot;/g, '"');
+          const track = {
+            id,
+            title,
+            url,
+            artist: channelTitle,
+            artwork: imgUrl
+          }
+    
+          AsyncStorage.setItem('current-play', JSON.stringify(track))
+          this.setState({track})
+        //   console.warn(track)
+          TrackPlayer.add(track).then(()=>TrackPlayer.play())
+          // res.data.filter(obj=>obj.itag==='140)[0].url 
+    
+        }).catch(e=>console.log(e))
+        
+    }
+
+
+
+    _handleTouch = async (idx) => {
         const { id: {videoId}, snippet } = this.props.video;
         const title = snippet.title.replace(('&#39;', "'"))
         if (idx===0) { //add song to async storage object (local storage)
 
         } else if (idx===1) { //handle stream
         
-            this.props.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url)
+            this.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url)
 
         } else if (idx===2) { //handle share
 
@@ -41,7 +128,7 @@ class VideoListItem extends Component {
             
             console.log(idx)
             // this._toggleModal();
-            this.props.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url);
+            this.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url).then(()=>this.testDownload());
         }
 
     }
@@ -57,7 +144,7 @@ class VideoListItem extends Component {
             <TouchableOpacity onPress={()=>this.setState({dropdown: !this.state.dropdown})}>
                 <ListItem 
                     leftAvatar={{ source: {uri: url}}}
-                    title={snippet.title.replace('&#39;', "'")}
+                    title={snippet.title.replace(/\&#39;/g, "'")}
                     titleStyle={{color: 'black'}}
                     subtitle={snippet.channelTitle}
                     containerStyle={styles.containerStyle}

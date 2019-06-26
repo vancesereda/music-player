@@ -21,6 +21,8 @@ import {withNavigation } from 'react-navigation'
 import HeaderIcons from '../components/HeaderIcons'
 import Player from '../components/Player'
 
+//Mock Data
+
 const artists = ["John Coltrane"]
 const tracks = [
   "Giant Steps",
@@ -51,7 +53,7 @@ const trackItemsJohnColtrane = tracks.map((track) => {
 const music = {
   trackItemsJohnColtrane
 }
-
+//End of mock data
 
 class HomeScreen extends React.Component {
 
@@ -69,7 +71,27 @@ class HomeScreen extends React.Component {
   };
 
 
-  
+  componentDidMount() {
+    this._retrieveData('music')
+  }
+
+  _retrieveData = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key).then(async obj=> {
+
+         this.setState({music: JSON.parse(obj)})
+
+
+      })
+      .catch(e=>console.log(e));
+      // const value = await AsyncStorage.getAllKeys()
+      
+    } 
+    catch (error) {
+      console.warn('Error retrieving async data.')
+    }
+
+  }
   
   render() {
     const { width, height } = Dimensions.get('window')
@@ -77,7 +99,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: "rgba(55,55,55,1)", marginTop: 0}}>
         <AppHeader headerText={'Library'} icon={'ios-menu'} rightComponent={<HeaderIcons size={20} color={'white'}/>}/>
-        <TrackList music={music.trackItemsJohnColtrane} />
+        <TrackList music={/*music.trackItemsJohnColtrane*/} />
         
       </View>
     );
