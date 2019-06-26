@@ -4,11 +4,14 @@ import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ModalComponent from './ModalComponent'
 import Axios from 'axios';
-const icons = ["playlist-plus", "play", "share", "download"];
-const text = ["Save", "Stream", "Share", "Download"];
 import TrackPlayer from 'react-native-track-player';
 import axios from 'axios';
 import RNBackgroundDownloader from 'react-native-background-downloader';
+
+
+
+const icons = ["playlist-plus", "play", "share", "download"];
+const text = ["Save", "Stream", "Share", "Download"];
 
 class VideoListItem extends Component {
     
@@ -22,16 +25,67 @@ class VideoListItem extends Component {
         }
     }
 
+    componentDidMount() {
+        TrackPlayer.setupPlayer();
+        this._retrieveData('music');
+
+    }
+
 
     _toggleModal = () => {
         this.setState({isVisible: !this.state.isVisible})
     }
 
-    componentDidMount() {
-        TrackPlayer.setupPlayer();
+
+    _retrieveData = async (key) => {
+        try {
+          const value = await AsyncStorage.getItem(key).then(async obj=> {
+            if (!this.state.hasOwnProperty(key)) {
+                this.setState({[key]: JSON.parse(obj)})
+            } 
+          })
+          .catch(e=>console.log(e));
+          
+        } 
+        catch (error) {
+          console.warn('Error retrieving async data.')
+        }
+    
+
     }
 
-    testDownload = async () => {
+    _storeData = async (key, dataObject) => {
+        
+        
+        //check to see if AsyncStorage has this key ('music' in this case, but I'd like it to be generalized)
+        // console.log(this.state[key], dataObject, 'this.state.key')
+        if (!this.state[key].length) {
+            var data = [];
+            data.push(dataObject);
+            console.log(data)
+            // console.log(data, dataObject)
+            console.log('data', data)
+            await AsyncStorage.setItem(key, JSON.stringify(data)).catch(e=>console.warn(e))
+            this.setState({[key]: data})
+            
+        } else {
+            //get state object relating to key so we can append to it
+
+            var stateObject = this.state[key];
+            for (let i = 0; i < stateObject.length; i++) {
+                if (stateObject[key][i].title === dataObject.title) {
+                    return;
+                }
+            }
+            stateObject.push(dataObject);
+
+
+            await AsyncStorage.setItem(key, JSON.stringify(stateObject))
+            this.setState({[key]:stateObject})
+        }
+    }
+
+    _testDownload = async () => {
         // const getTrack = await AsyncStorage.getItem('current-play').then((data)=> {
         //     // this.setState({track: JSON.parse(track)});
         //     const track = JSON.parse(data);
@@ -54,14 +108,9 @@ class VideoListItem extends Component {
             }
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                // await TrackPlayer.getCurrentTrack().then((data)=>console.log(data));
-                // const { track: {url, title}} = this.state;
-                // console.log(url)
                 const trackId = await TrackPlayer.getCurrentTrack();
                 const { title, url } = await TrackPlayer.getTrack(trackId);
                 const filename = `${title.replace(/\s/g, '-')}.mp4`;
-                // console.log(filename)
-                    
                 let task = RNBackgroundDownloader.download({
                     id: title,
                     url: url,
@@ -82,7 +131,7 @@ class VideoListItem extends Component {
         }
       }
 
-    getVideoInfo = async (id, title, channelTitle, imgUrl, idx) => {
+    _getVideoInfo = async (id, title, channelTitle, imgUrl, idx) => {
     
         const response = await axios.get(`https://youtube-video-info.herokuapp.com/api`, {
           params: { id }
@@ -100,10 +149,9 @@ class VideoListItem extends Component {
           }
     
           AsyncStorage.setItem('current-play', JSON.stringify(track))
+          this._storeData("music", track)
           this.setState({track})
-        //   console.warn(track)
           TrackPlayer.add(track).then(()=>TrackPlayer.play())
-          // res.data.filter(obj=>obj.itag==='140)[0].url 
     
         }).catch(e=>console.log(e))
         
@@ -118,7 +166,7 @@ class VideoListItem extends Component {
 
         } else if (idx===1) { //handle stream
         
-            this.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url)
+            this._getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url)
 
         } else if (idx===2) { //handle share
 
@@ -128,7 +176,7 @@ class VideoListItem extends Component {
             
             console.log(idx)
             // this._toggleModal();
-            this.getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url).then(()=>this.testDownload());
+            this._getVideoInfo(videoId, title, snippet.channelTitle, snippet.thumbnails.medium.url).then(()=>this._testDownload());
         }
 
     }
@@ -139,6 +187,7 @@ class VideoListItem extends Component {
     render() {
         const { snippet, snippet: {thumbnails: {medium: {url}}} } = this.props.video;
         const { isVisible, dropdown } = this.state;
+        AsyncStorage.getItem("music").then((obj)=>console.log(obj, this.state.music));
         return (
         <View>
             <TouchableOpacity onPress={()=>this.setState({dropdown: !this.state.dropdown})}>

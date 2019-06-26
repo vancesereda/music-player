@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   View,
   Button,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -22,7 +23,7 @@ import HeaderIcons from '../components/HeaderIcons'
 import Player from '../components/Player'
 import CenterTextView from '../components/CenterTextView';
 
-//Mock Data
+//Mock data
 
 const artists = ["John Coltrane"]
 const tracks = [
@@ -54,6 +55,7 @@ const trackItemsJohnColtrane = tracks.map((track) => {
 const music = {
   trackItemsJohnColtrane
 }
+
 //End of mock data
 
 class HomeScreen extends React.Component {
@@ -62,7 +64,7 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       selection: 'Tracks',
-      music: []
+      music: [],
     }
     
   }
@@ -73,23 +75,28 @@ class HomeScreen extends React.Component {
 
 
   componentDidMount() {
-    this._retrieveData('music')
+    // this._retrieveData('music')
+    AsyncStorage.getItem("music").then((obj)=>{
+      console.log(obj);
+      this.setState({music: JSON.parse(obj)})
+    }).catch(e=>console.log(e));
+    console.log(this.state.music)
   }
 
   _retrieveData = async (key) => {
     try {
       const value = await AsyncStorage.getItem(key).then(async obj=> {
 
-         this.setState({music: JSON.parse(obj)})
+         this.setState({[key]: JSON.parse(obj)})
 
 
       })
       .catch(e=>console.log(e));
-      // const value = await AsyncStorage.getAllKeys()
+      // const value = await AsyncStorage.getAllKeys()  // leaving this here in case I need to use it again
       
     } 
     catch (error) {
-      console.log('Error retrieving async data.')
+      console.log(error)
     }
 
   }

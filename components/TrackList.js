@@ -17,10 +17,10 @@ const TrackList = ({music}) => (
                     tension={100} // These props are passed to the parent component (here TouchableScale)
                     activeScale={0.95} //
                     leftAvatar={{source: require('../assets/images/icon.png')}}
-                    title={music.track}
+                    title={music.title}
                     subtitle={music.artist}
                     titleStyle={{color: 'white', fontWeight: 'bold'}}
-                    rightSubtitle={music.runTime}
+                    rightSubtitle={music.runTime || '2:30'}
                     containerStyle={{ backgroundColor: `${key%2 ? `rgba(45,45,45,1)` : `rgba(40,40,40,1)`}`}}
                     subtitleStyle={{color: 'grey'}}
                     rightSubtitleStyle={{color: 'white', paddingTop: 10}}

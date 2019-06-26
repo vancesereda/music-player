@@ -64,7 +64,6 @@ export default class SearchScreen extends React.Component {
 
       })
       .catch(e=>console.log(e));
-      // const value = await AsyncStorage.getAllKeys()
       
     } 
     catch (error) {
